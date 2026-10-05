@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+  <rect x="140" y="160" width="1640" height="760" rx="34" fill="#E2E8F0"/>
+  <rect x="220" y="240" width="560" height="600" rx="28" fill="#0F172A"/>
+  <rect x="850" y="240" width="650" height="280" rx="28" fill="#334155"/>
+  <rect x="850" y="560" width="650" height="280" rx="28" fill="#EA580C"/>
+  <circle cx="1178" cy="380" r="90" fill="#FDBA74"/>
+  <path d="M1140 380h76M1178 342v76" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round"/>
+  <rect x="270" y="320" width="420" height="280" rx="18" fill="#F97316"/>
+  <text x="270" y="680" fill="#E2E8F0" font-size="56" font-family="Arial, sans-serif">Soni Packers and Movers</text>
+</svg>

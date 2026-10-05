@@ -1,0 +1,376 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+  /* Global Brand Tokens - Changing any value here updates headings, buttons, badges across the entire app */
+  --brand-primary: #0B132B;
+  /* Midnight Navy (Main dark brand surfaces) */
+  --brand-red: #dc2626;
+  /* Cardinal Red (Primary accent & highlights) */
+  --brand-red-hover: #b91c1c;
+  /* Deep Red hover state */
+  --brand-red-light: #fef2f2;
+  /* Red tint for pill badges & icons */
+  --brand-red-border: #fecaca;
+  /* Red light border */
+  --brand-blue: #0284c7;
+  /* Sky Blue accent */
+  --brand-blue-hover: #0369a1;
+  /* Deep Sky Blue */
+  --brand-gold: #f59e0b;
+  /* Amber Gold (Google 4.7★) */
+  --brand-emerald: #16a34a;
+  /* WhatsApp green */
+  --brand-surface: #ffffff;
+  --brand-bg-subtle: #f8fafc;
+  --brand-border: #e2e8f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-hover: var(--brand-red-hover);
+  --color-brand-red-light: var(--brand-red-light);
+  --color-brand-red-border: var(--brand-red-border);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-emerald: var(--brand-emerald);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-subtle: var(--brand-bg-subtle);
+  --color-brand-border: var(--brand-border);
+}
+
+/* Global Brand Utility Classes */
+.text-brand {
+  color: var(--brand-red);
+}
+
+.bg-brand {
+  background-color: var(--brand-red);
+}
+
+.border-brand {
+  border-color: var(--brand-red);
+}
+
+.bg-brand-light {
+  background-color: var(--brand-red-light);
+}
+
+.border-brand-light {
+  border-color: var(--brand-red-border);
+}
+
+.btn-brand-primary {
+  background-color: var(--brand-red);
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-primary:hover {
+  background-color: var(--brand-red-hover);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   LAYOUT STANDARDS (1600px Max-Width & Strict 40px/20px Spacing)
+   ========================================================================== */
+.site-container {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Strict section spacing: 40px desktop, 20px mobile */
+.section-spacing {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .section-spacing {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+html {
+  overflow-x: clip;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow-shift {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(234, 88, 12, 0));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 18px rgba(234, 88, 12, 0.22));
+  }
+}
+
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 700ms ease-out both;
+}
+
+.animate-fade-left {
+  animation: fade-left 700ms ease-out both;
+}
+
+.animate-fade-right {
+  animation: fade-right 700ms ease-out both;
+}
+
+.animate-pop-in {
+  animation: pop-in 700ms ease-out both;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-glow-shift {
+  animation: glow-shift 4.5s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 10s ease infinite;
+}
+
+@keyframes hero-ken-burns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: scale(1.14) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+.animate-hero-ken-burns {
+  animation: hero-ken-burns 7.5s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  will-change: transform;
+}
+
+@keyframes hero-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-content {
+  animation: hero-content-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hero-badge-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-badge {
+  animation: hero-badge-in 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hero-sub-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-sub {
+  animation: hero-sub-in 550ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 36s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 36s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-fade-up,
+  .animate-fade-left,
+  .animate-fade-right,
+  .animate-pop-in,
+  .animate-float-slow,
+  .animate-glow-shift,
+  .animate-gradient-shift,
+  .animate-hero-ken-burns,
+  .animate-hero-content,
+  .animate-hero-badge,
+  .animate-hero-sub,
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation: none;
+  }
+}

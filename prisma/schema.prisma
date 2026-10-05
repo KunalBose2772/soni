@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  loginId   String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  phone      String
+  movingFrom String
+  movingTo   String
+  moveDate   DateTime
+  moveType   String
+  message    String
+  status     String   @default("New")
+  nextFollowUpAt DateTime?
+  adminNote      String?
+  statusUpdatedAt DateTime?
+  createdAt  DateTime @default(now())
+  reminderSent Boolean @default(false)
+  emails     LeadEmail[]
+}
+
+model GalleryCategory {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  galleries Gallery[]
+}
+
+model Gallery {
+  id           String          @id @default(cuid())
+  imageUrl     String
+  storagePath  String
+  originalName String
+  title        String
+  categoryId   String
+  createdAt    DateTime        @default(now())
+  category     GalleryCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model LeadEmail {
+  id         String   @id @default(cuid())
+  bookingId  String
+  booking    Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  direction  String   // "SENT" or "RECEIVED"
+  subject    String
+  body       String
+  from       String
+  to         String
+  messageId  String?  @unique
+  createdAt  DateTime @default(now())
+}
