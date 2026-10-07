@@ -3,6 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import PageHeroBanner from "../components/PageHeroBanner";
 import QuoteForm from "../components/QuoteForm";
 import SectionHeader from "../components/ui/SectionHeader";
+import CallToAction from "../components/CallToAction";
 import { siteAssets } from "@/lib/site-assets";
 import { companyInfo } from "@/lib/company-info";
 
@@ -19,9 +20,12 @@ export default function ContactPage() {
       <PageHeroBanner
         title="Contact Sony Packers and Movers"
         subtitle="Speak with our Ranchi dispatch coordinators for instant booking, free on-site survey, and transparent relocation quotes."
-        breadcrumb="Contact Support"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact Us" },
+        ]}
+        badge="24x7 Customer Helpline"
         backgroundImage={siteAssets.pages.contact.heroBanner}
-        heightClassName="min-h-[50vh] sm:min-h-[58vh]"
       />
 
       {/* =========================================================================
@@ -30,15 +34,15 @@ export default function ContactPage() {
       <section className="section-spacing bg-white border-b border-slate-100">
         <div className="site-container">
           <div className="grid items-stretch gap-8 lg:grid-cols-12">
-            {/* Left Column: Office Information in Deep Midnight Navy */}
-            <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl bg-[#0B132B] p-6 sm:p-8 text-white shadow-xl border border-white/10 relative overflow-hidden">
-              <div className="absolute -top-20 -right-20 w-64 h-64 bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
+            {/* Left Column: Office Information in Royal Blue */}
+            <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl bg-brand-primary p-6 sm:p-8 text-white shadow-xl border border-blue-400/20 relative overflow-hidden">
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10">
                 <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-tight mb-2">
                   Reach Us for Bookings &amp; Inquiries
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-6">
                   Available around the clock for household moves, corporate office relocations, car/bike carrier services, and warehouse storage.
                 </p>
 
@@ -112,7 +116,7 @@ export default function ContactPage() {
               {cities.map((city) => (
                 <span
                   key={city}
-                  className="rounded-full bg-slate-50 border border-slate-200/70 px-3.5 py-1 text-xs font-semibold font-sans text-slate-700 hover:border-red-300 hover:text-red-600 transition-colors"
+                  className="rounded-full bg-slate-50 border border-slate-200/70 px-3.5 py-1 text-xs font-semibold font-sans text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-colors"
                 >
                   {city}
                 </span>
@@ -149,6 +153,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Reusable Final CTA */}
+      <CallToAction />
     </main>
   );
 }

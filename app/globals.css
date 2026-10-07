@@ -4,28 +4,38 @@
   --background: #ffffff;
   --foreground: #0f172a;
 
-  /* Global Brand Tokens - Changing any value here updates headings, buttons, badges across the entire app */
-  --brand-primary: #0B132B;
-  /* Midnight Navy (Main dark brand surfaces) */
-  --brand-red: #dc2626;
-  /* Cardinal Red (Primary accent & highlights) */
-  --brand-red-hover: #b91c1c;
+  /* Global Brand Tokens - Royal Blue Primary Surfaces & Cardinal Red Action Buttons */
+  --brand-primary: #1A3C8E;
+  /* Royal Blue Primary (Main brand surfaces, footer background, cards) */
+  --brand-primary-dark: #12285E;
+  /* Deep Royal Blue (Sub-bars, legal bar) */
+  --brand-primary-light: #254DB3;
+  /* Soft Royal Blue hover/borders */
+
+  --brand-royal: #1A3C8E;
+  /* Royal Blue token */
+  --brand-royal-light: #EFF6FF;
+  --brand-royal-border: #BFDBFE;
+
+  --brand-red: #DC2626;
+  /* Vibrant Cardinal Red for action buttons, callouts & accents */
+  --brand-red-hover: #B91C1C;
   /* Deep Red hover state */
-  --brand-red-light: #fef2f2;
+  --brand-red-light: #FEF2F2;
   /* Red tint for pill badges & icons */
-  --brand-red-border: #fecaca;
+  --brand-red-border: #FECACA;
   /* Red light border */
-  --brand-blue: #0284c7;
-  /* Sky Blue accent */
-  --brand-blue-hover: #0369a1;
-  /* Deep Sky Blue */
-  --brand-gold: #f59e0b;
-  /* Amber Gold (Google 4.7★) */
-  --brand-emerald: #16a34a;
+
+  --brand-blue: #1D4ED8;
+  /* Classic Blue accent */
+  --brand-blue-hover: #1E40AF;
+  --brand-gold: #F59E0B;
+  /* Amber Gold (Google 4.7★ & Trust highlights) */
+  --brand-emerald: #16A34A;
   /* WhatsApp green */
   --brand-surface: #ffffff;
-  --brand-bg-subtle: #f8fafc;
-  --brand-border: #e2e8f0;
+  --brand-bg-subtle: #F8FAFC;
+  --brand-border: #E2E8F0;
 }
 
 @theme inline {
@@ -35,11 +45,17 @@
   --font-heading: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
 
   --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-primary-light: var(--brand-primary-light);
+  --color-brand-royal: var(--brand-royal);
+  --color-brand-royal-light: var(--brand-royal-light);
+  --color-brand-royal-border: var(--brand-royal-border);
   --color-brand-red: var(--brand-red);
   --color-brand-red-hover: var(--brand-red-hover);
   --color-brand-red-light: var(--brand-red-light);
   --color-brand-red-border: var(--brand-red-border);
   --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-hover: var(--brand-blue-hover);
   --color-brand-gold: var(--brand-gold);
   --color-brand-emerald: var(--brand-emerald);
   --color-brand-surface: var(--brand-surface);
@@ -76,6 +92,14 @@
 
 .btn-brand-primary:hover {
   background-color: var(--brand-red-hover);
+}
+
+.bg-brand-primary {
+  background-color: var(--brand-primary);
+}
+
+.bg-brand-primary-dark {
+  background-color: var(--brand-primary-dark);
 }
 
 body {

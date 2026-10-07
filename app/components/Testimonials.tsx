@@ -147,7 +147,7 @@ const rowTwoReviews: Review[] = [
 // Single Google Review Card Component
 function GoogleReviewCard({ review }: { review: Review }) {
   return (
-    <article className="w-[330px] sm:w-[400px] shrink-0 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-red-200 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between select-none">
+    <article className="w-[330px] sm:w-[400px] shrink-0 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-200 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between select-none">
       <div>
         {/* Card Header: Avatar + Name + Google Logo */}
         <div className="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-100">
@@ -219,30 +219,32 @@ export default function Testimonials() {
           />
 
           {/* Google GMB Trust Snapshot Card (Aligned on the same line) */}
-          <div className="shrink-0 flex items-center gap-4 bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs self-start lg:self-center">
-            <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shrink-0">
-              <FcGoogle size={28} />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-extrabold text-slate-950 font-heading leading-none">
-                  {companyInfo.gmb.rating}
-                </span>
-                <div className="flex items-center gap-0.5 text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
+          <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 shadow-xs w-full sm:w-auto self-start lg:self-center">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shrink-0">
+                <FcGoogle size={28} />
               </div>
-              <p className="text-[11px] font-medium text-slate-500 mt-1">
-                Based on <strong className="text-slate-900">{companyInfo.gmb.reviewCount}+ verified reviews</strong>
-              </p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-extrabold text-slate-950 font-heading leading-none">
+                    {companyInfo.gmb.rating}
+                  </span>
+                  <div className="flex items-center gap-0.5 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-[11px] font-medium text-slate-500 mt-1">
+                  Based on <strong className="text-slate-900">{companyInfo.gmb.reviewCount}+ verified reviews</strong>
+                </p>
+              </div>
             </div>
             <a
               href={companyInfo.gmb.googleMapsDirectionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white px-4 py-2.5 text-xs font-semibold transition-colors shrink-0 ml-1"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 sm:py-2.5 text-xs font-semibold transition-colors shrink-0 w-full sm:w-auto sm:ml-1"
             >
               <span>View Google Maps</span>
               <ExternalLink size={12} />

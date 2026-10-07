@@ -6,6 +6,8 @@ import ServiceCoverageSection from "../../components/ServiceCoverageSection";
 import ServiceBookingSection from "../../components/ServiceBookingSection";
 import FAQSection from "../../components/FAQSection";
 import CallToAction from "../../components/CallToAction";
+import Process from "../../components/Process";
+import WhyChooseUs from "../../components/WhyChooseUs";
 import { getServiceBySlug, services } from "../../components/serviceData";
 
 type ServicePageProps = {
@@ -47,10 +49,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <PageHeroBanner
         title={service.title}
         subtitle={service.desc}
-        breadcrumb="Services"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services/household" },
+          { label: service.title },
+        ]}
+        badge="Verified Relocation Partner"
         backgroundImage={service.image}
       />
       <ServiceShowcase activeSlug={service.slug} />
+      <Process />
       <ServiceCoverageSection
         heading={service.coverage.heading}
         intro={service.coverage.intro}
@@ -58,6 +66,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         intercity={service.coverage.intercity}
         promise={service.coverage.promise}
       />
+      <WhyChooseUs />
       <ServiceBookingSection
         title={service.booking.title}
         leftLabel={service.booking.leftLabel}

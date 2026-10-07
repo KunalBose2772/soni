@@ -35,7 +35,7 @@ export default function Error({
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={() => reset()}
-            className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-600/25 transition-all hover:-translate-y-0.5 hover:bg-orange-700"
+            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:bg-blue-700"
           >
             <RotateCcw size={18} />
             Try Again
@@ -51,7 +51,7 @@ export default function Error({
             href={companyInfo.telLink}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition-all hover:-translate-y-0.5 hover:bg-slate-100"
           >
-            <Phone size={18} className="text-orange-600" />
+            <Phone size={18} className="text-blue-600" />
             {companyInfo.formattedPhone}
           </a>
         </div>

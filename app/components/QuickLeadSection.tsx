@@ -67,8 +67,8 @@ export default function QuickLeadSection() {
 
           {/* Right Column: Prominent Lead Generation Form Card */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-xl relative overflow-hidden">
-              <div className="mb-5 pb-4 border-b border-slate-100 flex items-center justify-between">
+            <div className="rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 p-4 sm:p-8 shadow-xl relative overflow-hidden">
+              <div className="mb-4 sm:mb-5 pb-3 sm:pb-4 border-b border-slate-100 flex items-center justify-between">
                 <div>
                   <h3 className="text-base sm:text-lg font-bold font-heading text-slate-950">
                     Request Shifting Quote

@@ -109,13 +109,13 @@ export default function WhyChooseUs() {
         </div>
 
         {/* Bottom Trust Metrics Ribbon */}
-        <div className="rounded-2xl bg-[#0B132B] text-white p-5 sm:p-6 border border-white/10 shadow-lg">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+        <div className="rounded-2xl bg-brand-primary text-white p-5 sm:p-6 border border-blue-400/25 shadow-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-blue-400/20">
             <div className="pt-2 sm:pt-0 sm:px-4 first:pl-0">
               <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
                 1,500<span className="text-brand font-bold">+</span>
               </p>
-              <p className="text-xs text-slate-300 font-medium font-sans mt-1.5">
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
                 Homes &amp; Offices Shifted
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function WhyChooseUs() {
               <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
                 4.7<span className="text-amber-400 font-bold">★</span>
               </p>
-              <p className="text-xs text-slate-300 font-medium font-sans mt-1.5">
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
                 Verified Google Rating
               </p>
             </div>
@@ -133,7 +133,7 @@ export default function WhyChooseUs() {
               <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
                 100<span className="text-brand font-bold">%</span>
               </p>
-              <p className="text-xs text-slate-300 font-medium font-sans mt-1.5">
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
                 Safe Doorstep Delivery
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function WhyChooseUs() {
               <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
                 10<span className="text-brand font-bold">+</span>
               </p>
-              <p className="text-xs text-slate-300 font-medium font-sans mt-1.5">
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
                 Years Serving Ranchi
               </p>
             </div>

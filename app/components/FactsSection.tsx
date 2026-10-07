@@ -71,7 +71,7 @@ export default function FactsSection({
               return (
                 <article
                   key={item.label}
-                  className={`rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-500 hover:bg-white/10 hover:border-red-500/30 hover:-translate-y-1 ${
+                  className={`rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5 sm:p-6 transition-all duration-500 hover:bg-white/10 hover:border-blue-500/30 hover:-translate-y-1 ${
                     isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                   }`}
                   style={{ transitionDelay: `${120 + idx * 80}ms` }}

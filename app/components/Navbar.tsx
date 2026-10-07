@@ -13,7 +13,6 @@ import {
   ArrowRight,
   Sparkles,
   Home,
-  Building2,
   Car,
   Warehouse,
   Package,
@@ -21,7 +20,6 @@ import {
   Globe2,
   Star,
   CheckCircle2,
-  Shield,
   Briefcase,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
@@ -51,7 +49,7 @@ const servicesMegaList = [
     desc: "Safe bike and car carrier service with secure hydraulic loading.",
     href: "/services/vehicle",
     icon: Car,
-    iconBg: "bg-red-600",
+    iconBg: "bg-blue-600",
   },
   {
     label: "Warehousing Services",
@@ -84,21 +82,31 @@ export default function Navbar() {
   const pathname = usePathname();
   const megaTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Track scroll position to hide top bar on scroll
+  // Track scroll position to hide top bar on scroll.
+  // Uses hysteresis: hide when scrollY > 50, show again only when scrollY < 10.
+  // This prevents flickering when the user stops scrolling near the boundary.
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const y = window.scrollY;
+      setIsScrolled((prev) => {
+        if (prev && y < 10) return false;   // already hidden → show only when well at top
+        if (!prev && y > 50) return true;   // already shown → hide only when scrolled enough
+        return prev;                         // within dead-zone: keep current state
+      });
     };
-    handleScroll();
+    // Set initial state without hysteresis
+    setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Close menus on route change
-  useEffect(() => {
-    setMobileOpen(false);
-    setMegaOpen(null);
-  }, [pathname]);
+  const prevPathnameRef = useRef(pathname);
+  if (prevPathnameRef.current !== pathname) {
+    prevPathnameRef.current = pathname;
+    if (mobileOpen) setMobileOpen(false);
+    if (megaOpen) setMegaOpen(null);
+  }
 
   // Lock body scroll on mobile drawer open
   useEffect(() => {
@@ -135,16 +143,20 @@ export default function Navbar() {
           LEVEL 1: EXECUTIVE SLATE TOP BAR
           Clean Midnight Navy with Complete Verified Address + Google Trust + Contacts
           Hides smoothly when page is scrolled down!
+          Uses clip + opacity (no max-h) to avoid layout-shift jitter.
           ========================================================================= */}
       <div
-        className={`hidden lg:block border-b border-slate-800 bg-[#0B132B] text-slate-200 transition-all duration-300 overflow-hidden ${
-          isScrolled ? "max-h-0 opacity-0 border-b-0" : "max-h-12 opacity-100"
+        className={`hidden lg:block border-b border-blue-900/40 bg-brand-primary-dark text-blue-100 transition-[opacity,transform] duration-300 ease-in-out ${
+          isScrolled
+            ? "opacity-0 -translate-y-full h-0 overflow-hidden border-b-0 pointer-events-none"
+            : "opacity-100 translate-y-0 h-10"
         }`}
+        aria-hidden={isScrolled}
       >
         <div className="mx-auto flex h-10 max-w-[1600px] items-center justify-between px-4 sm:px-6 lg:px-8 text-[12.5px] font-sans">
           {/* Left: Complete Verified Office Address */}
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="flex items-center justify-center w-5 h-5 rounded-full bg-red-600/20 text-red-400 shrink-0">
+            <div className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-600/20 text-blue-400 shrink-0">
               <MapPin size={11} />
             </div>
             <span className="text-slate-300 font-medium truncate">
@@ -166,9 +178,9 @@ export default function Navbar() {
             {/* Direct Phone Call */}
             <a
               href={companyInfo.telLink}
-              className="flex items-center gap-1.5 text-white hover:text-red-400 transition-colors font-semibold"
+              className="flex items-center gap-1.5 text-white hover:text-blue-400 transition-colors font-semibold"
             >
-              <Phone size={11} className="text-red-500 fill-current" />
+              <Phone size={11} className="text-blue-400 fill-current" />
               <span>{companyInfo.formattedPhone}</span>
             </a>
 
@@ -213,8 +225,8 @@ export default function Navbar() {
               href="/"
               className={`px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                 pathname === "/"
-                  ? "text-red-600 bg-red-50/80 font-extrabold"
-                  : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                  ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                  : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
               }`}
             >
               Home
@@ -230,8 +242,8 @@ export default function Navbar() {
                 href="/services/household"
                 className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                   pathname.startsWith("/services")
-                    ? "text-red-600 bg-red-50/80 font-extrabold"
-                    : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                    ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                    : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
                 }`}
                 aria-expanded={megaOpen === "Services"}
               >
@@ -239,7 +251,7 @@ export default function Navbar() {
                 <ChevronDown
                   size={14}
                   className={`transition-transform duration-200 text-slate-500 ${
-                    megaOpen === "Services" ? "rotate-180 text-red-600" : ""
+                    megaOpen === "Services" ? "rotate-180 text-blue-700" : ""
                   }`}
                 />
               </Link>
@@ -255,8 +267,8 @@ export default function Navbar() {
                 href="/packers-movers-jharkhand"
                 className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                   pathname.startsWith("/packers-movers-")
-                    ? "text-red-600 bg-red-50/80 font-extrabold"
-                    : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                    ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                    : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
                 }`}
                 aria-expanded={megaOpen === "Location"}
               >
@@ -264,7 +276,7 @@ export default function Navbar() {
                 <ChevronDown
                   size={14}
                   className={`transition-transform duration-200 text-slate-500 ${
-                    megaOpen === "Location" ? "rotate-180 text-red-600" : ""
+                    megaOpen === "Location" ? "rotate-180 text-blue-700" : ""
                   }`}
                 />
               </Link>
@@ -275,8 +287,8 @@ export default function Navbar() {
               href="/gallery"
               className={`px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                 pathname === "/gallery"
-                  ? "text-red-600 bg-red-50/80 font-extrabold"
-                  : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                  ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                  : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
               }`}
             >
               Gallery
@@ -287,8 +299,8 @@ export default function Navbar() {
               href="/about"
               className={`px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                 pathname === "/about"
-                  ? "text-red-600 bg-red-50/80 font-extrabold"
-                  : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                  ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                  : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
               }`}
             >
               About
@@ -299,8 +311,8 @@ export default function Navbar() {
               href="/contact"
               className={`px-4 py-2 rounded-full text-[13.5px] font-bold font-sans tracking-wide transition-all ${
                 pathname === "/contact"
-                  ? "text-red-600 bg-red-50/80 font-extrabold"
-                  : "text-slate-800 hover:text-red-600 hover:bg-slate-50"
+                  ? "text-blue-700 bg-blue-50/80 font-extrabold"
+                  : "text-slate-800 hover:text-blue-700 hover:bg-slate-50"
               }`}
             >
               Contact
@@ -312,30 +324,30 @@ export default function Navbar() {
             {/* Quick Call Pill */}
             <a
               href={companyInfo.telLink}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-all text-slate-800 text-xs font-bold font-heading hover:border-red-600/40 hover:text-red-600"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-all text-slate-800 text-xs font-bold font-heading hover:border-brand/40 hover:text-brand"
             >
-              <Phone size={12} className="text-red-600 fill-current" />
+              <Phone size={12} className="text-brand fill-current" />
               <span>{companyInfo.formattedPhone}</span>
             </a>
 
             {/* High-Converting Red Pill CTA Button (Clean Solid, Zero Fuzzy Shadow) */}
-            <a
+            <Link
               href="/#quote"
               className="btn-brand-primary px-5 py-2.5 rounded-full text-xs font-bold font-heading flex items-center gap-1.5 transition-all duration-200 hover:-translate-y-0.5 shrink-0 cursor-pointer shadow-none"
             >
               <span>Get A Quote</span>
               <ArrowRight size={13} />
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Bar: Logo + Compact Quote Pill + Hamburger */}
           <div className="flex items-center gap-2 lg:hidden">
-            <a
+            <Link
               href="/#quote"
               className="btn-brand-primary px-3.5 py-1.5 rounded-full text-[11px] font-bold font-heading transition-all shrink-0 cursor-pointer shadow-none"
             >
               Get A Quote
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -368,7 +380,7 @@ export default function Navbar() {
                   </span>
                   <Link
                     href="/services/household"
-                    className="text-xs font-bold text-red-600 hover:underline inline-flex items-center gap-1 font-heading"
+                    className="text-xs font-bold text-blue-700 hover:underline inline-flex items-center gap-1 font-heading"
                   >
                     View All Services <ArrowRight size={12} />
                   </Link>
@@ -391,11 +403,11 @@ export default function Navbar() {
                             >
                               <IconComp className="w-5 h-5" />
                             </div>
-                            <ArrowRight className="w-4 h-4 text-slate-300 group-hover/card:text-red-600 group-hover/card:translate-x-1 transition-all" />
+                            <ArrowRight className="w-4 h-4 text-slate-300 group-hover/card:text-blue-700 group-hover/card:translate-x-1 transition-all" />
                           </div>
 
                           {/* Title in Sora */}
-                          <h4 className="text-sm font-bold text-slate-900 font-heading group-hover/card:text-red-600 transition-colors mb-1.5 leading-snug">
+                          <h4 className="text-sm font-bold text-slate-900 font-heading group-hover/card:text-blue-700 transition-colors mb-1.5 leading-snug">
                             {service.label}
                           </h4>
 
@@ -406,7 +418,7 @@ export default function Navbar() {
                         </div>
 
                         {/* Bottom Indicator Bar (Expands on hover) */}
-                        <div className="mt-4 h-1 w-8 rounded-full bg-slate-200 group-hover/card:w-14 group-hover/card:bg-red-600 transition-all duration-300" />
+                        <div className="mt-4 h-1 w-8 rounded-full bg-slate-200 group-hover/card:w-14 group-hover/card:bg-blue-600 transition-all duration-300" />
                       </Link>
                     );
                   })}
@@ -414,7 +426,7 @@ export default function Navbar() {
               </div>
 
               {/* Right Pane: Executive Trust Showcase Card */}
-              <div className="rounded-2xl bg-[#0B132B] p-6 text-white flex flex-col justify-between border border-slate-800">
+              <div className="rounded-2xl bg-brand-primary p-6 text-white flex flex-col justify-between border border-blue-400/25">
                 <div>
                   {/* Badge */}
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/20 mb-4 font-heading">
@@ -423,7 +435,7 @@ export default function Navbar() {
                   </div>
 
                   <h3 className="text-xl font-black font-heading leading-tight tracking-tight text-white mb-2.5">
-                    Zero Damage, <span className="text-red-500">Fast & Safe</span> Relocation
+                    Zero Damage, <span className="text-blue-400">Fast & Safe</span> Relocation
                   </h3>
 
                   <p className="text-slate-300 text-xs leading-relaxed font-sans mb-5">
@@ -446,10 +458,10 @@ export default function Navbar() {
                   </div>
                 </div>
 
-                {/* Clean Solid Red Pill Button (Zero Shadow) */}
+                {/* Clean Solid Red Pill Button */}
                 <Link
                   href="/#quote"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-red-600 hover:bg-red-700 text-white py-3 text-xs font-bold uppercase tracking-wider transition-all hover:-translate-y-0.5 font-heading shadow-none"
+                  className="btn-brand-primary w-full inline-flex items-center justify-center gap-2 rounded-full py-3 text-xs font-bold uppercase tracking-wider transition-all hover:-translate-y-0.5 font-heading shadow-none"
                 >
                   <span>Get Instant Quote</span>
                   <ArrowRight size={13} />
@@ -476,10 +488,10 @@ export default function Navbar() {
                 <div className="rounded-2xl border border-slate-200/90 bg-slate-50/40 p-5">
                   <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-slate-200">
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900 font-heading flex items-center gap-1.5">
-                      <MapPin size={14} className="text-red-600" />
+                      <MapPin size={14} className="text-blue-700" />
                       Jharkhand Operational Hubs
                     </span>
-                    <Link href="/packers-movers-jharkhand" className="text-[11px] font-bold text-red-600 hover:underline">
+                    <Link href="/packers-movers-jharkhand" className="text-[11px] font-bold text-blue-700 hover:underline">
                       View All
                     </Link>
                   </div>
@@ -488,7 +500,7 @@ export default function Navbar() {
                       <Link
                         key={loc.href}
                         href={loc.href}
-                        className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-red-50 hover:text-red-600 transition truncate"
+                        className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition truncate"
                       >
                         {loc.label}
                       </Link>
@@ -522,7 +534,7 @@ export default function Navbar() {
               </div>
 
               {/* Right Pane: Pan India Callout */}
-              <div className="rounded-2xl bg-[#0B132B] p-6 text-white flex flex-col justify-between border border-slate-800">
+              <div className="rounded-2xl bg-brand-primary p-6 text-white flex flex-col justify-between border border-blue-400/25">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-sky-400 bg-sky-400/10 border border-sky-400/20 mb-3 font-heading">
                     <Globe2 className="w-3 h-3 text-sky-400" />
@@ -594,7 +606,7 @@ export default function Navbar() {
                 href="/"
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-full text-sm font-bold transition ${
-                  pathname === "/" ? "bg-red-50 text-red-600 font-extrabold" : "text-slate-800 hover:bg-slate-100"
+                  pathname === "/" ? "bg-blue-50 text-blue-700 font-extrabold" : "text-slate-800 hover:bg-slate-100"
                 }`}
               >
                 <span>Home</span>
@@ -612,7 +624,7 @@ export default function Navbar() {
                   <ChevronDown
                     size={16}
                     className={`transition-transform duration-200 text-slate-400 ${
-                      mobileSectionOpen === "services" ? "rotate-180 text-red-600" : ""
+                      mobileSectionOpen === "services" ? "rotate-180 text-blue-700" : ""
                     }`}
                   />
                 </button>
@@ -623,7 +635,7 @@ export default function Navbar() {
                         key={service.label}
                         href={service.href}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-red-50 hover:text-red-600 transition"
+                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition"
                       >
                         <span>{service.label}</span>
                         <ArrowRight size={12} className="opacity-30" />
@@ -644,21 +656,21 @@ export default function Navbar() {
                   <ChevronDown
                     size={16}
                     className={`transition-transform duration-200 text-slate-400 ${
-                      mobileSectionOpen === "locations" ? "rotate-180 text-red-600" : ""
+                      mobileSectionOpen === "locations" ? "rotate-180 text-blue-700" : ""
                     }`}
                   />
                 </button>
                 {mobileSectionOpen === "locations" && (
                   <div className="border-t border-slate-200 bg-white p-3 space-y-3">
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-red-600 mb-1">Jharkhand Hubs</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-blue-700 mb-1">Jharkhand Hubs</p>
                       <div className="grid grid-cols-2 gap-1">
                         {topLocationLinks.slice(0, 8).map((loc) => (
                           <Link
                             key={loc.href}
                             href={loc.href}
                             onClick={() => setMobileOpen(false)}
-                            className="px-2 py-1 text-xs text-slate-700 hover:text-red-600"
+                            className="px-2 py-1 text-xs text-slate-700 hover:text-blue-700"
                           >
                             {loc.label}
                           </Link>
@@ -688,7 +700,7 @@ export default function Navbar() {
                 href="/gallery"
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-full text-sm font-bold transition ${
-                  pathname === "/gallery" ? "bg-red-50 text-red-600 font-extrabold" : "text-slate-800 hover:bg-slate-100"
+                  pathname === "/gallery" ? "bg-blue-50 text-blue-700 font-extrabold" : "text-slate-800 hover:bg-slate-100"
                 }`}
               >
                 <span>Gallery</span>
@@ -699,7 +711,7 @@ export default function Navbar() {
                 href="/about"
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-full text-sm font-bold transition ${
-                  pathname === "/about" ? "bg-red-50 text-red-600 font-extrabold" : "text-slate-800 hover:bg-slate-100"
+                  pathname === "/about" ? "bg-blue-50 text-blue-700 font-extrabold" : "text-slate-800 hover:bg-slate-100"
                 }`}
               >
                 <span>About Us</span>
@@ -710,30 +722,30 @@ export default function Navbar() {
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center justify-between px-4 py-3 rounded-full text-sm font-bold transition ${
-                  pathname === "/contact" ? "bg-red-50 text-red-600 font-extrabold" : "text-slate-800 hover:bg-slate-100"
+                  pathname === "/contact" ? "bg-blue-50 text-blue-700 font-extrabold" : "text-slate-800 hover:bg-slate-100"
                 }`}
               >
                 <span>Contact</span>
                 <ArrowRight size={14} className="opacity-40" />
               </Link>
 
-              <a
+              <Link
                 href="/#quote"
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-between px-4 py-3 rounded-full text-sm font-bold btn-brand-primary transition mt-2 shadow-xs"
               >
                 <span>Get Free Moving Quote</span>
                 <ArrowRight size={14} />
-              </a>
+              </Link>
 
               {/* Complete Address & Verified Card in Drawer */}
-              <div className="mt-4 rounded-2xl bg-slate-950 p-4 text-white text-xs space-y-3 border border-slate-800">
-                <div className="flex items-start gap-2.5 text-slate-300">
-                  <MapPin size={16} className="text-red-500 shrink-0 mt-0.5" />
+              <div className="mt-4 rounded-2xl bg-brand-primary p-4 text-white text-xs space-y-3 border border-blue-400/20">
+                <div className="flex items-start gap-2.5 text-blue-100">
+                  <MapPin size={16} className="text-amber-400 shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{companyInfo.address.full}</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-slate-300">
-                  <Phone size={14} className="text-red-500 shrink-0 fill-current" />
+                <div className="flex items-center gap-2.5 text-blue-100">
+                  <Phone size={14} className="text-amber-400 shrink-0 fill-current" />
                   <span className="font-extrabold text-white">{companyInfo.formattedPhone}</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-400">
@@ -757,7 +769,7 @@ export default function Navbar() {
                 </a>
                 <a
                   href={companyInfo.telLink}
-                  className="flex items-center justify-center gap-1.5 rounded-full bg-red-600 hover:bg-red-700 py-2.5 text-center text-xs font-bold text-white transition-colors shadow-none"
+                  className="btn-brand-primary flex items-center justify-center gap-1.5 rounded-full py-2.5 text-center text-xs font-bold transition-colors shadow-none"
                 >
                   <Phone size={13} className="fill-current" />
                   <span>Call Now</span>

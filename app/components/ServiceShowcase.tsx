@@ -54,20 +54,20 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
                 href={`/services/${service.slug}`}
                 className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ${
                   isActive
-                    ? "border-red-500/80 bg-slate-950 text-white shadow-lg ring-1 ring-red-500/30"
-                    : "border-slate-200/90 bg-white text-slate-900 hover:-translate-y-1 hover:border-red-300 hover:shadow-md"
+                    ? "border-blue-500/80 bg-slate-950 text-white shadow-lg ring-1 ring-blue-500/30"
+                    : "border-slate-200/90 bg-white text-slate-900 hover:-translate-y-1 hover:border-blue-300 hover:shadow-md"
                 } ${isInView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
                 style={{ transitionDelay: `${100 + idx * 60}ms` }}
               >
                 <div
                   className={`mb-3.5 inline-flex rounded-xl p-2.5 transition-transform duration-300 ${
-                    isActive ? "bg-red-600 text-white shadow-xs" : `${service.accent} text-white group-hover:scale-105`
+                    isActive ? "bg-blue-600 text-white shadow-xs" : `${service.accent} text-white group-hover:scale-105`
                   }`}
                 >
                   <Icon size={20} />
                 </div>
                 <p className="text-xs sm:text-sm font-bold font-heading leading-tight line-clamp-1">{service.shortTitle}</p>
-                <div className={`mt-3 h-1 w-10 rounded-full transition-all duration-300 ${isActive ? "bg-red-500 w-14" : "bg-slate-200 group-hover:bg-red-400 group-hover:w-14"}`} />
+                <div className={`mt-3 h-1 w-10 rounded-full transition-all duration-300 ${isActive ? "bg-blue-600 w-14" : "bg-slate-200 group-hover:bg-blue-400 group-hover:w-14"}`} />
               </Link>
             );
           })}
@@ -101,7 +101,7 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
                   key={idx}
                   onClick={() => setActiveSlide(idx)}
                   className={`h-2 rounded-full transition-all cursor-pointer ${
-                    idx === activeSlide ? "w-6 bg-red-600" : "w-2 bg-white/70 hover:bg-white"
+                    idx === activeSlide ? "w-6 bg-blue-600" : "w-2 bg-white/70 hover:bg-white"
                   }`}
                   aria-label={`Show image ${idx + 1}`}
                 />
@@ -111,7 +111,7 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
 
           {/* Right Column: Service Deep Dive */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-200/80 px-2.5 py-1 rounded-full w-fit mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-full w-fit mb-2">
               Verified Service Specifications
             </span>
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-slate-950 leading-tight mb-3">
@@ -126,10 +126,10 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
               {activeService.details.map((item, idx) => (
                 <div
                   key={item}
-                  className="flex items-center gap-2.5 rounded-xl border border-slate-100 bg-slate-50 px-3.5 py-2.5 transition-all hover:bg-red-50/20 hover:border-red-200/60"
+                  className="flex items-center gap-2.5 rounded-xl border border-slate-100 bg-slate-50 px-3.5 py-2.5 transition-all hover:bg-blue-50/20 hover:border-blue-200/60"
                   style={{ transitionDelay: `${150 + idx * 80}ms` }}
                 >
-                  <CheckCircle2 size={16} className="text-red-600 shrink-0" strokeWidth={2.2} />
+                  <CheckCircle2 size={16} className="text-blue-600 shrink-0" strokeWidth={2.2} />
                   <span className="text-xs sm:text-[13px] font-medium font-sans text-slate-800">{item}</span>
                 </div>
               ))}
@@ -139,7 +139,7 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
             <div>
               <Link
                 href="/#quote"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-red-600 hover:bg-red-700 text-white px-7 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-none font-sans"
+                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-none font-sans"
               >
                 <span>Book This Relocation Service</span>
                 <ArrowRight size={14} />

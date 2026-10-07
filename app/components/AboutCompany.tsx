@@ -86,10 +86,10 @@ export default function AboutCompany() {
             </div>
 
             {/* Action Buttons: Unified Rounded-Full */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <Link
                 href="/#quote"
-                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans"
+                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans text-center"
               >
                 <span>Get Instant Quote</span>
                 <ArrowRight size={14} />
@@ -97,10 +97,10 @@ export default function AboutCompany() {
 
               <a
                 href={companyInfo.telLink}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-950 text-slate-800 hover:text-slate-950 bg-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-950 text-slate-800 hover:text-slate-950 bg-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans text-center"
               >
-                <PhoneCall size={14} className="text-brand" />
-                <span>Call Helpline: {companyInfo.formattedPhone}</span>
+                <PhoneCall size={14} className="text-brand shrink-0" />
+                <span>Call {companyInfo.formattedPhone}</span>
               </a>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function AboutCompany() {
             </div>
 
             {/* Social Proof Badge (Clean, Natural) */}
-            <div className="absolute -bottom-4 right-4 sm:-right-2 z-10 rounded-2xl bg-[#0B132B] text-white border border-white/10 shadow-lg p-3 flex items-center gap-3">
+            <div className="absolute bottom-2 right-2 sm:-bottom-4 sm:-right-2 max-w-[calc(100%-1rem)] z-10 rounded-2xl bg-brand-primary text-white border border-blue-400/20 shadow-lg p-3 flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 shrink-0">
                 <Star size={16} className="fill-slate-950 text-slate-950" />
               </div>
@@ -131,7 +131,7 @@ export default function AboutCompany() {
                 <p className="text-xs font-bold text-white font-heading leading-tight">
                   4.7 / 5 on Google
                 </p>
-                <p className="text-[10px] text-slate-300 font-sans leading-tight mt-0.5">
+                <p className="text-[10px] text-blue-100 font-sans leading-tight mt-0.5">
                   136+ Verified Customer Reviews
                 </p>
               </div>

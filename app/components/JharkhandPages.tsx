@@ -69,53 +69,7 @@ type DistrictPageProps = {
   faqImages: string[];
 };
 
-function HeroShell({
-  eyebrow,
-  title,
-  subtitle,
-  heroImage,
-  titleClassName = "md:text-7xl",
-  centered = false,
-}: {
-  eyebrow: string;
-  title: ReactNode;
-  subtitle: string;
-  heroImage: string;
-  titleClassName?: string;
-  centered?: boolean;
-}) {
-  return (
-    <section className="relative overflow-hidden bg-slate-950 min-h-[72vh]">
-      <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35"
-        style={{ backgroundImage: `url('${heroImage}')` }}
-      />
-      <div className="pointer-events-none absolute inset-0 bg-blue-950/65" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-950/70 via-blue-950/45 to-transparent" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:28px_28px] opacity-20" />
-
-      <div className="relative z-10 mx-auto flex min-h-[72vh] max-w-7xl items-center px-4 py-16 sm:px-6 lg:px-8">
-        <div className={`max-w-2xl animate-fade-up ${centered ? "mx-auto text-center" : ""}`}>
-          <div
-            className={`mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.28em] text-white backdrop-blur-sm ${
-              centered ? "mx-auto" : ""
-            } animate-pop-in`}
-            style={{ animationDelay: "80ms" }}
-          >
-            <span className="h-2 w-2 rounded-full bg-orange-500" />
-            {eyebrow}
-          </div>
-          <h1 className={`text-5xl font-black leading-tight text-white ${titleClassName} animate-fade-up`} style={{ animationDelay: "160ms" }}>
-            {title}
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-100 md:text-2xl animate-fade-left" style={{ animationDelay: "240ms" }}>
-            {subtitle}
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
+import PageHeroBanner from "./PageHeroBanner";
 
 function DistrictChips({
   districts,
@@ -154,7 +108,16 @@ export function JharkhandStatePage({
 }: StatePageProps) {
   return (
     <>
-      <HeroShell eyebrow={eyebrow} title={title} subtitle={subtitle} heroImage={heroImage} titleClassName="md:text-7xl" />
+      <PageHeroBanner
+        title={title}
+        subtitle={subtitle}
+        backgroundImage={heroImage}
+        badge={eyebrow}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Jharkhand Shifting" },
+        ]}
+      />
 
       <section className="bg-white py-8 md:py-12">
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8 animate-fade-up">
@@ -250,20 +213,23 @@ export function JharkhandDistrictPage({
 
   return (
     <>
-      <HeroShell
-        eyebrow={eyebrowText}
+      <PageHeroBanner
+        badge={eyebrowText}
         title={
           <>
-            Packers and Movers in{' '}
-            <span className="bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+            Packers and Movers in{" "}
+            <span className="text-brand">
               {displayArea}
             </span>
           </>
         }
         subtitle={introCopy}
-        heroImage={heroImage}
-        titleClassName="md:text-5xl"
-        centered
+        backgroundImage={heroImage}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Jharkhand", href: "/packers-movers-jharkhand" },
+          { label: displayArea },
+        ]}
       />
 
       <section className="bg-white py-10 md:py-16 animate-fade-up" style={{ animationDelay: "60ms" }}>

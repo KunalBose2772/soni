@@ -178,7 +178,7 @@ export default function HeroSlider() {
               </Link>
             </div>
 
-            {/* Highly Optimized Trust Stats (Clean Proportion, No Broken Pan-India Line) */}
+            {/* Highly Optimized Trust Stats (Visible on All Devices) */}
             <div className="flex items-center gap-3.5 sm:gap-6 lg:gap-8 pt-3 sm:pt-4 border-t border-white/15 max-w-lg">
               <div>
                 <p className="text-lg sm:text-2xl lg:text-3xl font-extrabold font-heading text-white leading-none">
@@ -259,11 +259,11 @@ export default function HeroSlider() {
       </div>
 
       {/* =========================================================================
-          BOTTOM ASSURANCE BAR (Hidden on Mobile per User Request, Visible on Desktop)
+          BOTTOM ASSURANCE BAR (Hidden on Mobile, Visible on Tablet / Desktop)
           ========================================================================= */}
-      <div className="hidden lg:block relative z-30 w-full border-t border-white/15 bg-[#080E1E]/95 backdrop-blur-md text-slate-200 py-3 sm:py-3.5 shrink-0">
+      <div className="hidden sm:block relative z-30 w-full border-t border-white/15 bg-brand-primary-dark/95 backdrop-blur-md text-slate-200 py-3 sm:py-3.5 shrink-0">
         <div className="site-container">
-          <div className="grid grid-cols-4 gap-4 md:gap-6 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-center">
             {/* 1. Zero Hidden Charges */}
             <div className="flex items-center gap-2.5 sm:gap-3">
               <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shrink-0 shadow-sm">

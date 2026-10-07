@@ -147,7 +147,7 @@ export default function DistrictServiceAreaMap({
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-slate-900 hover:bg-red-600 text-white px-5 py-2.5 text-xs font-semibold font-sans transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+            className="inline-flex items-center gap-2 rounded-full bg-slate-900 hover:bg-blue-600 text-white px-5 py-2.5 text-xs font-semibold font-sans transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           >
             <MapPin size={14} />
             <span>Open in Google Maps</span>
@@ -165,13 +165,13 @@ export default function DistrictServiceAreaMap({
                 {routeEntries.map((route, index) => (
                   <li
                     key={`${route.key}-${index}`}
-                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white px-3 py-2 text-slate-800 shadow-xs hover:border-red-200 transition-colors"
+                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white px-3 py-2 text-slate-800 shadow-xs hover:border-blue-200 transition-colors"
                   >
-                    <div className="w-5 h-5 rounded-full bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                       <MapPin size={11} />
                     </div>
                     <span className="min-w-0 flex-1 truncate text-xs font-medium font-sans text-slate-700">{route.from}</span>
-                    <ArrowRight size={12} className="shrink-0 text-red-500" />
+                    <ArrowRight size={12} className="shrink-0 text-blue-600" />
                     <span className="min-w-0 flex-1 truncate text-xs font-bold font-sans text-slate-950">{route.to}</span>
                   </li>
                 ))}

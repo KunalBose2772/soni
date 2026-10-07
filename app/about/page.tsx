@@ -6,6 +6,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import PageHeroBanner from "../components/PageHeroBanner";
 import { useInView } from "../components/useInView";
 import FactsSection from "../components/FactsSection";
+import WhyChooseUs from "../components/WhyChooseUs";
+import Process from "../components/Process";
 import { siteAssets } from "@/lib/site-assets";
 import CallToAction from "../components/CallToAction";
 import OperationalCities from "../components/OperationalCities";
@@ -36,9 +38,12 @@ export default function AboutPage() {
       <PageHeroBanner
         title="About Sony Packers and Movers"
         subtitle="Ranchi's trusted relocation specialists offering household shifting, office moves, vehicle carrier services, and secure storage across India."
-        breadcrumb="About Our Company"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About Us" },
+        ]}
+        badge="Established Relocation Specialists"
         backgroundImage={siteAssets.pages.about.heroBanner}
-        heightClassName="min-h-[50vh] sm:min-h-[58vh]"
       />
 
       {/* =========================================================================
@@ -61,13 +66,13 @@ export default function AboutPage() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <div className="overflow-hidden rounded-2xl bg-red-600 p-5 text-white shadow-md transition-transform duration-300 hover:-translate-y-1">
+                <div className="overflow-hidden rounded-2xl bg-blue-600 p-5 text-white shadow-md transition-transform duration-300 hover:-translate-y-1">
                   <div className="flex items-center gap-3">
                     <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
                       <Truck size={22} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-red-100">Headquartered in Ranchi</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-blue-100">Headquartered in Ranchi</p>
                       <p className="text-base font-bold font-heading">Ratu Road Central Hub</p>
                     </div>
                   </div>
@@ -83,7 +88,7 @@ export default function AboutPage() {
                   />
                 </div>
                 <div className="rounded-2xl border border-slate-200/90 bg-slate-50 p-4 shadow-xs">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-50 border border-red-200/80 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-full">
                     What We Do
                   </span>
                   <p className="mt-2 text-xs text-slate-600 font-sans leading-relaxed">
@@ -152,7 +157,7 @@ export default function AboutPage() {
                   href={companyInfo.telLink}
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-950 text-slate-800 hover:text-slate-950 bg-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 font-sans"
                 >
-                  <PhoneCall size={13} className="text-red-600" />
+                  <PhoneCall size={13} className="text-brand" />
                   <span>Call {companyInfo.formattedPhone}</span>
                 </a>
 
@@ -177,21 +182,26 @@ export default function AboutPage() {
       <FactsSection />
 
       {/* =========================================================================
-          SECTION 3: SERVICE COVERAGE & NATIONAL ROUTES
+          SECTION 3: STEP-BY-STEP PROCESS
+          ========================================================================= */}
+      <Process />
+
+      {/* =========================================================================
+          SECTION 4: SERVICE COVERAGE & NATIONAL ROUTES
           ========================================================================= */}
       <section ref={zonesRef} className="section-spacing bg-slate-50/70 border-b border-slate-100">
         <div className="site-container">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
             {/* Left Box: India-Wide Network */}
             <div
-              className={`lg:col-span-7 rounded-3xl bg-[#0B132B] p-6 sm:p-8 text-white shadow-xl border border-white/10 transition-all duration-700 ${
+              className={`lg:col-span-7 rounded-3xl bg-brand-primary p-6 sm:p-8 text-white shadow-xl border border-blue-400/20 transition-all duration-700 ${
                 zonesInView ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
               }`}
             >
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-heading leading-tight mb-2">
                 Reliable Relocation Routes Across India
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed mb-6">
+              <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-6">
                 From local shifting within Ranchi to scheduled intercity runs across all major state capitals, our dedicated container vehicles guarantee on-time transit.
               </p>
 
@@ -243,11 +253,11 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                <div className="rounded-2xl bg-[#0B132B] text-white p-4 transition-transform hover:-translate-y-0.5">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-red-400 font-heading">
+                <div className="rounded-2xl bg-brand-primary text-white p-4 border border-blue-400/20 transition-transform hover:-translate-y-0.5">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-300 font-heading">
                     Our Quality Promise
                   </p>
-                  <p className="mt-1 text-xs text-slate-300 font-sans leading-relaxed">
+                  <p className="mt-1 text-xs text-blue-100 font-sans leading-relaxed">
                     Zero hidden charges, comprehensive written estimates, verified crew, and 24x7 phone/WhatsApp move updates.
                   </p>
                 </div>
@@ -258,7 +268,12 @@ export default function AboutPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 4: OPERATIONAL CITIES
+          SECTION 5: WHY CHOOSE US
+          ========================================================================= */}
+      <WhyChooseUs />
+
+      {/* =========================================================================
+          SECTION 6: OPERATIONAL CITIES
           ========================================================================= */}
       <OperationalCities
         title="Operational Cities &"

@@ -123,11 +123,20 @@ export default function PricingGuideSection() {
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {rates.map((item) => (
+          {rates.map((item, idx) => (
             <div
               key={item.service}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-5 shadow-xs hover:border-slate-350 hover:shadow-md transition-all duration-200"
+              className={`flex flex-col justify-between rounded-2xl border bg-white p-5 shadow-xs hover:shadow-md transition-all duration-200 relative ${
+                idx === 1
+                  ? "border-brand/40 ring-1 ring-brand/20"
+                  : "border-slate-200/90 hover:border-slate-350"
+              }`}
             >
+              {idx === 1 && (
+                <div className="absolute -top-3 left-4 px-2.5 py-0.5 rounded-full bg-brand text-white text-[10px] font-bold font-heading tracking-wide uppercase shadow-xs">
+                  Most Popular
+                </div>
+              )}
               <div>
                 <h3 className="text-base font-bold font-heading text-slate-950 mb-1">
                   {item.service}
@@ -160,10 +169,10 @@ export default function PricingGuideSection() {
               <button
                 type="button"
                 onClick={() => openQuoteModal()}
-                className="mt-5 w-full inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-950 py-2.5 text-xs font-semibold font-sans transition-colors cursor-pointer"
+                className="mt-5 w-full bg-brand hover:bg-brand-red-hover text-white inline-flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-xs sm:text-sm font-bold font-heading transition-all hover:-translate-y-0.5 shadow-md shadow-brand/20 active:scale-[0.98] cursor-pointer"
               >
                 <span>Check Exact Price</span>
-                <ArrowRight size={12} className="text-brand" />
+                <ArrowRight size={14} />
               </button>
             </div>
           ))}
@@ -186,7 +195,7 @@ export default function PricingGuideSection() {
           <button
             type="button"
             onClick={() => openQuoteModal()}
-            className="btn-brand-primary shrink-0 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold font-sans transition-all hover:-translate-y-0.5 cursor-pointer shadow-xs"
+            className="btn-brand-primary w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold font-sans transition-all hover:-translate-y-0.5 cursor-pointer shadow-xs"
           >
             <span>Request Fixed Quote</span>
             <ArrowRight size={13} />

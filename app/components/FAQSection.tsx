@@ -77,11 +77,11 @@ export default function FAQSection({
               />
 
               {/* Direct Help & Support Card */}
-              <div className="rounded-2xl bg-[#0B132B] text-white p-6 border border-white/10 shadow-lg mt-6">
+              <div className="rounded-2xl bg-brand-primary text-white p-6 border border-blue-400/20 shadow-lg mt-6">
                 <h4 className="text-base font-bold text-white font-heading mb-1">
                   Have a specific question about your move?
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed mb-5">
+                <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-5">
                   Our Ranchi office is open 24x7 to provide free consultation, custom route estimates, and packing advice.
                 </p>
 

@@ -13,6 +13,7 @@ import DistrictServiceAreaMap from "./DistrictServiceAreaMap";
 import type { OperationalCity } from "@/lib/operational-cities";
 import { operationalCities } from "@/lib/operational-cities";
 import { siteAssets } from "@/lib/site-assets";
+import PageHeroBanner from "./PageHeroBanner";
 
 type FAQItem = {
   question: string;
@@ -85,29 +86,22 @@ export default function OperationalCityPages({
 
   return (
     <>
-      <section className="relative overflow-hidden bg-slate-950 min-h-[72vh]">
-        <div
-          className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35"
-          style={{ backgroundImage: `url('${siteAssets.pages.operationalCities.heroBanner}')` }}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-blue-950/65" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-950/70 via-blue-950/45 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:28px_28px] opacity-20" />
-
-        <div className="relative z-10 mx-auto flex min-h-[72vh] max-w-7xl items-center px-4 py-16 sm:px-6 lg:px-8">
-          <div className="max-w-2xl animate-fade-up mx-auto text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.28em] text-white backdrop-blur-sm">
-              <span className="h-2 w-2 rounded-full bg-orange-500" />
-              {cityName} Service Area
-            </div>
-            <h1 className="text-5xl font-black leading-tight text-white md:text-5xl">
-              Packers and Movers in
-              <span className="mt-2 block text-orange-500">{cityName}</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-100 md:text-2xl">{introCopy}</p>
-          </div>
-        </div>
-      </section>
+      <PageHeroBanner
+        badge={`${cityName} Service Area`}
+        title={
+          <>
+            Packers and Movers in{" "}
+            <span className="text-brand">{cityName}</span>
+          </>
+        }
+        subtitle={introCopy}
+        backgroundImage={siteAssets.pages.operationalCities.heroBanner}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Operational Cities", href: "/packers-movers" },
+          { label: cityName },
+        ]}
+      />
 
       <section className="bg-white py-10 md:py-16 animate-fade-up" style={{ animationDelay: "60ms" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 animate-fade-up" style={{ animationDelay: "80ms" }}>
