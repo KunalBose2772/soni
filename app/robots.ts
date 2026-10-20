@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/"],
       },
     ],
-    sitemap: "https://sonypackersmovers.com/sitemap.xml",
+    sitemap: "https://sonypackers.in/sitemap.xml",
   };
 }

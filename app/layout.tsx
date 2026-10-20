@@ -20,7 +20,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sonypackersmovers.com"),
+  metadataBase: new URL("https://sonypackers.in"),
   title: {
     default: "Sony Packers and Movers | Trusted Relocation in Ranchi & Pan India",
     template: "%s | Sony Packers and Movers",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sony Packers and Movers | Trusted Relocation in Ranchi & Pan India",
     description: companyInfo.description,
-    url: "https://sonypackersmovers.com",
+    url: "https://sonypackers.in",
     siteName: companyInfo.name,
     locale: "en_IN",
     type: "website",
@@ -88,9 +88,9 @@ const jsonLd = {
   "@type": "MovingCompany",
   name: companyInfo.name,
   legalName: companyInfo.legalName,
-  url: "https://sonypackersmovers.com",
-  logo: "https://sonypackersmovers.com/assets/logo/logo.png",
-  image: "https://sonypackersmovers.com/assets/logo/logo.png",
+  url: "https://sonypackers.in",
+  logo: "https://sonypackers.in/assets/logo/logo.png",
+  image: "https://sonypackers.in/assets/logo/logo.png",
   description: companyInfo.description,
   telephone: `+91${companyInfo.phone}`,
   email: "sonypackersranchi@gmail.com",

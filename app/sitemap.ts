@@ -4,7 +4,7 @@ import { operationalCities } from "@/lib/operational-cities";
 import { jharkhandDistricts } from "./packers-movers-jharkhand/locationData";
 import { biharDistricts } from "./packers-movers-bihar/locationData";
 
-const BASE_URL = "https://sonypackersmovers.com";
+const BASE_URL = "https://sonypackers.in";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date().toISOString();

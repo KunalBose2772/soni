@@ -13,6 +13,7 @@ export const companyInfo = {
   formattedPhone: "+91 9835983331",
   telLink: "tel:+919835983331",
   email: "sonypackersranchi@gmail.com",
+  website: "https://sonypackers.in",
   whatsappNumber: "919835983331",
   whatsappLink: (message = "Hello! I need a shifting quote.") =>
     `https://wa.me/919835983331?text=${encodeURIComponent(message)}`,
