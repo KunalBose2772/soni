@@ -1,34 +1,73 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { PhoneCall } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-
-const whatsappNumber = "919835983331";
-const whatsappMessage = "Hello! I need a shifting quote.";
-const phoneNumber = "6209280901";
+import { companyInfo } from "@/lib/company-info";
 
 export default function FloatingContactButtons() {
+  const [isScrollActive, setIsScrollActive] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setIsScrollActive(true);
+      } else {
+        setIsScrollActive(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const whatsappUrl = `https://wa.me/${companyInfo.whatsappNumber}?text=${encodeURIComponent(
+    "Hello Sony Packers & Movers! I need a quote for shifting."
+  )}`;
+  const callUrl = `tel:${companyInfo.phone}`;
+
   return (
-    <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div
+      className="fixed right-3.5 sm:right-6 z-45 flex flex-col gap-3 items-end transition-all duration-300 ease-out"
+      style={{ bottom: isScrollActive ? "84px" : "20px" }}
+    >
+      {/* Call Button */}
       <a
-        href={`tel:${phoneNumber}`}
-        aria-label="Call Sony Packers and Movers"
-        className="group relative flex h-16 w-16 items-center justify-center rounded-full border border-white/80 bg-[#1d74ff] text-white shadow-[0_18px_40px_rgba(29,116,255,0.35)] transition duration-300 ease-out animate-float-slow hover:scale-110 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300/70"
+        href={callUrl}
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-blue-600 text-white shadow-lg sm:shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+        aria-label={`Call Sony Packers: ${companyInfo.formattedPhone}`}
       >
-        <span className="absolute inset-[-7px] rounded-full border border-white/50 opacity-40 animate-pulse" />
-        <span className="absolute inset-[6px] rounded-full border border-white/25 opacity-70" />
-        <PhoneCall className="relative h-8 w-8 -rotate-12 drop-shadow-[0_1px_1px_rgba(0,0,0,0.18)] transition-transform duration-300 group-hover:scale-110" />
+        {/* Pulsing Outer Ring */}
+        <span className="absolute inset-0 rounded-full bg-blue-500/30 animate-ping opacity-75 pointer-events-none" />
+        <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 relative z-10" />
+
+        {/* Tooltip */}
+        <span className="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-[11px] font-bold tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none shadow-md hidden sm:block">
+          Call {companyInfo.formattedPhone}
+        </span>
       </a>
 
+      {/* WhatsApp Button */}
       <a
-        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        className="group relative flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-green-500 to-emerald-600 text-white shadow-lg sm:shadow-xl shadow-green-600/30 hover:shadow-green-600/50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
         aria-label="Chat on WhatsApp"
-        className="group relative flex h-16 w-16 items-center justify-center rounded-full border border-white/80 bg-[#22c55e] text-white shadow-[0_18px_40px_rgba(34,197,94,0.35)] transition duration-300 ease-out animate-float-slow hover:scale-110 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-green-300/70"
-        style={{ animationDelay: "0.9s" }}
       >
-        <span className="absolute inset-[-7px] rounded-full border border-white/50 opacity-40 animate-pulse" />
-        <span className="absolute inset-[6px] rounded-full border border-white/25 opacity-70" />
-        <FaWhatsapp className="relative text-[2.05rem] drop-shadow-[0_1px_1px_rgba(0,0,0,0.18)] transition-transform duration-300 group-hover:scale-110" />
+        {/* Pulsing Outer Ring */}
+        <span
+          className="absolute inset-0 rounded-full bg-green-500/30 animate-ping opacity-75 pointer-events-none"
+          style={{ animationDelay: "0.5s" }}
+        />
+        <FaWhatsapp className="w-5 h-5 sm:w-7 sm:h-7 relative z-10" />
+
+        {/* Tooltip */}
+        <span className="absolute right-full mr-3 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-[11px] font-bold tracking-wide whitespace-nowrap opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none shadow-md hidden sm:block">
+          Chat on WhatsApp
+        </span>
       </a>
     </div>
   );

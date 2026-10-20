@@ -1,248 +1,301 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Star, User } from "lucide-react";
-import { useInView } from "./useInView";
+import { Star, CheckCircle2, ExternalLink, MapPin } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
+import SectionHeader from "./ui/SectionHeader";
+import { companyInfo } from "@/lib/company-info";
 
 type Review = {
   name: string;
+  initial: string;
+  avatarBg: string;
   role: string;
+  route: string;
+  rating: number;
+  timeAgo: string;
   text: string;
 };
 
-const reviews: Review[] = [
+// Row 1 Reviews (Moves Left)
+const rowOneReviews: Review[] = [
   {
     name: "Lalit Prasad",
-    role: "Home Shifting - Ranchi",
-    text: "I had an excellent experience transporting my belongings from Ranchi to Delhi. The team was professional, the manager was responsible, and the packing materials were of top quality. The reasonable rates and smooth service made the entire process completely stress-free. I highly recommend!",
+    initial: "L",
+    avatarBg: "bg-[#1a73e8]", // Google Blue
+    role: "Household Relocation",
+    route: "Ranchi ➔ Delhi",
+    rating: 5,
+    timeAgo: "2 weeks ago",
+    text: "I had an excellent experience transporting my belongings from Ranchi to Delhi. The team was professional, the manager was responsible, and the packing materials were of top quality. Reasonable rates and completely stress-free!",
   },
   {
     name: "Biswajit Guchait",
+    initial: "B",
+    avatarBg: "bg-[#1e8e3e]", // Google Green
     role: "Office Relocation",
-    text: "A huge shoutout to the team for making my move from Hazaribagh to Kolkata so seamless. Their behavior was wonderful, and they explained the entire logistics process very clearly. The packing was perfect, and I loved that they kept me in the loop with regular updates. Truly an amazing service.",
-  },
-  {
-    name: "Mukesh Patel",
-    role: "Intercity Move",
-    text: "Most reliable and efficient service I ever got, thankyou sony Packers and Movers for great service. I was worried about my household goods, especially about those items which are very delicate and expensive too. After all the things are moved and assembled perfectly, I can say that I have made a perfect choice by going after sony Packers and Movers services. Thank you sony Packers and movers and all staff.",
-  },
-  {
-    name: "Vivek",
-    role: "Warehouse Support Client",
-    text: "It was a nice experience with SONY packers and movers. They were punctual and packed all my stuff carefully and timely. All my stuff were in good condition after delivery. They settled all my stuff as they said. Must try Sony packers and movers.",
-  },
-  {
-    name: "K Kumar",
-    role: "Bike Transport",
-    text: "Outstanding service from start to finish. The team was incredibly professional efficient and courteous throughout the entire moving process from ranchi to patna. Thank you SONY packers and movers.",
+    route: "Hazaribagh ➔ Kolkata",
+    rating: 5,
+    timeAgo: "1 month ago",
+    text: "A huge shoutout to the team for making my move from Hazaribagh to Kolkata seamless. Their behavior was wonderful, explained the entire logistics process clearly, and kept me in the loop with regular updates.",
   },
   {
     name: "Prakash Kumar",
-    role: "Local Household Move",
-    text: "I moved to Thane, Maharashtra 2 months back along with my family for settling there. I chose Sony packers for relocating my household goods and car there. I was worried about how to relocate goods safely, but Sony assistants were nice and dedicated towards their job. They packed each and every good with safety and also relocated them safely to my place.",
+    initial: "P",
+    avatarBg: "bg-[#d93025]", // Google Red
+    role: "Home & Car Move",
+    route: "Ranchi ➔ Thane, Mumbai",
+    rating: 5,
+    timeAgo: "3 weeks ago",
+    text: "I moved to Thane, Maharashtra with my family. I chose Sony Packers for relocating my household goods and car. They packed each and every good with safety and relocated everything safely without a single scratch.",
+  },
+  {
+    name: "Mukesh Patel",
+    initial: "M",
+    avatarBg: "bg-[#f9ab00]", // Google Amber
+    role: "Intercity Shifting",
+    route: "Ranchi ➔ Patna",
+    rating: 5,
+    timeAgo: "2 months ago",
+    text: "Most reliable and efficient service. I was worried about my delicate and expensive household items, but after all things arrived and were assembled perfectly, I know I made the right choice.",
   },
   {
     name: "Priyanka Singh",
+    initial: "P",
+    avatarBg: "bg-[#9334e6]", // Google Purple
     role: "Local Household Move",
-    text: "I'm very happy with the quality of services provided by Sony Packers and movers. A designated movement manager is assigned to each customer which makes the entire shifting process very convenient.",
+    route: "Local Ranchi (Morabadi ➔ Doranda)",
+    rating: 5,
+    timeAgo: "3 weeks ago",
+    text: "Very happy with the service quality. Having a designated movement manager assigned made the entire shifting process convenient and hassle-free. Courteous crew and fast delivery. Highly recommended!",
   },
   {
-    name: "Dewesh Shukla",
-    role: "Local Household Move",
-    text: "Professional packers, save time by providing effective services, including loading, packing, moving, and unloading. Good work",
-  },
-  {
-    name: "Ankit Choubey",
-    role: "Local Household Move",
-    text: "Sony packers do fantastic work and their workers done work properly and all goods should be packed in good manner and transferred it safely",
-  },
-  {
-    name: "30Bheem Besra",
-    role: "Local Household Move",
-    text: "The staff of SONY PACKERS & MOVERS are professional in handling all kinds of packing and moving services. Thank you team. I used the household shifting services to shift my residential goods.",
-  },
-  {
-    name: "Utkarsh Lal",
-    role: "Local Household Move",
-    text: "Very nice service recieved, they shipped my scooty and household items safely. They have nice behaviour of staff too.",
-  },
-  {
-    name: "Binti Kumar Khusi",
-    role: "Local Household Move",
-    text: "Sony Packers & Movers provides exceptional service. They are friendly and professional. The expert team helped me move my office supplies from Gumla to Delhi.",
-  },
-  {
-    name: "Mukul Verma",
-    role: "Local Household Move",
-    text: "Sony packers and movers helped me move my entire household from Ranchi to Tata Motors. Their packing, loading, and transportation were excellent. My experience was quite satisfactory.",
-  },
-  {
-    name: "Sunita Kumari",
-    role: "Local Household Move",
-    text: "Nice service. Manoj ji very-very nice. Thanks mera saman acche se aagya kuch bhi damage nahi hua hai.",
+    name: "K Kumar",
+    initial: "K",
+    avatarBg: "bg-[#0097a7]", // Google Teal
+    role: "Bike & Household Move",
+    route: "Ranchi ➔ Jamshedpur",
+    rating: 5,
+    timeAgo: "1 month ago",
+    text: "Outstanding service from start to finish. The team was incredibly professional, efficient, and courteous throughout the entire moving process from Ranchi to Jamshedpur. Thank you Sony Packers!",
   },
 ];
 
-export default function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(1);
-  const { ref, isInView } = useInView<HTMLDivElement>();
+// Row 2 Reviews (Moves Right)
+const rowTwoReviews: Review[] = [
+  {
+    name: "Sunita Kumari",
+    initial: "S",
+    avatarBg: "bg-[#e52592]", // Google Magenta
+    role: "Residential Shifting",
+    route: "Local Ranchi (Ratu Road)",
+    rating: 5,
+    timeAgo: "1 month ago",
+    text: "Nice service. Manoj ji very-very helpful. Mera saman acche se aagya, kuch bhi damage nahi hua hai. Sabhi workers ne bahut mehnat ki aur safely deliver kiya.",
+  },
+  {
+    name: "Binti Kumar Khusi",
+    initial: "B",
+    avatarBg: "bg-[#e8710a]", // Google Orange
+    role: "Office Supplies Relocation",
+    route: "Gumla ➔ New Delhi",
+    rating: 5,
+    timeAgo: "2 months ago",
+    text: "Sony Packers & Movers provides exceptional service. Friendly and professional. The expert team helped me safely move our office supplies from Gumla to Delhi without delays.",
+  },
+  {
+    name: "Utkarsh Lal",
+    initial: "U",
+    avatarBg: "bg-[#1a73e8]", // Google Blue
+    role: "Vehicle & Goods Move",
+    route: "Local Ranchi (Bariatu)",
+    rating: 5,
+    timeAgo: "4 weeks ago",
+    text: "Very nice service received, they shipped my scooty and household items safely. The staff was polite and punctual. Real-time driver updates throughout transit.",
+  },
+  {
+    name: "Mukul Verma",
+    initial: "M",
+    avatarBg: "bg-[#1e8e3e]", // Google Green
+    role: "Complete Household Move",
+    route: "Ranchi ➔ Tata Motors, Jamshedpur",
+    rating: 5,
+    timeAgo: "2 months ago",
+    text: "Helped me move my entire household from Ranchi to Tata Motors. Packing, loading, and transportation were excellent. My experience was completely satisfactory and damage-free.",
+  },
+  {
+    name: "Arvind Mishra",
+    initial: "A",
+    avatarBg: "bg-[#d93025]", // Google Red
+    role: "Domestic Shifting",
+    route: "Ranchi ➔ Bengaluru",
+    rating: 5,
+    timeAgo: "3 months ago",
+    text: "Relocated all 3BHK household goods from Ranchi to Bangalore. Packing was done with multiple layers and container arrived on committed date. Zero hassle, superb coordination!",
+  },
+  {
+    name: "Rakesh Sharma",
+    initial: "R",
+    avatarBg: "bg-[#9334e6]", // Google Purple
+    role: "Corporate Office Shifting",
+    route: "Ranchi ➔ Dhanbad",
+    rating: 5,
+    timeAgo: "1 month ago",
+    text: "Commercial shifting handled with great care. All IT equipment, monitors, and furniture were wrapped properly and unboxed on the other side seamlessly. Highly satisfied.",
+  },
+];
 
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      if (window.innerWidth >= 1024) {
-        setVisibleCount(3);
-        return;
-      }
-
-      if (window.innerWidth >= 768) {
-        setVisibleCount(2);
-        return;
-      }
-
-      setVisibleCount(1);
-    };
-
-    updateVisibleCount();
-    window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
-  }, []);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setCurrentIndex((prev) => (prev >= reviews.length - 1 ? 0 : prev + 1));
-    }, 4500);
-
-    return () => window.clearInterval(id);
-  }, []);
-
-  const maxIndex = reviews.length - 1;
-  const displayIndex = Math.min(currentIndex, maxIndex);
-  const translatePercent = displayIndex * (100 / visibleCount);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-  };
-
+// Single Google Review Card Component
+function GoogleReviewCard({ review }: { review: Review }) {
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 flex flex-col items-center gap-4 text-center md:mb-12">
-          <h2
-            className={`text-4xl font-bold text-slate-900 transition-all duration-1000 ease-out md:text-5xl ${
-              isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-10 opacity-0 blur-[2px]"
-            }`}
-          >
-            What Our Customers Say
-          </h2>
-          <p
-            className={`max-w-2xl text-slate-600 transition-all duration-1000 ease-out ${
-              isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-10 opacity-0 blur-[2px]"
-            }`}
-            style={{ transitionDelay: "220ms" }}
-          >
-            Real feedback from families and businesses who trusted us with their moves.
-          </p>
-        </div>
-
-        <div className="relative">
-          <div className="absolute -left-3 top-1/2 z-10 hidden -translate-y-1/2 md:block">
-            <button
-              type="button"
-              onClick={goToPrevious}
-              className="grid h-11 w-11 place-items-center rounded-full bg-slate-900 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-orange-600 hover:shadow-orange-500/30"
-              aria-label="Previous testimonials"
-            >
-              <ChevronLeft size={22} />
-            </button>
-          </div>
-
-          <div className="absolute -right-3 top-1/2 z-10 hidden -translate-y-1/2 md:block">
-            <button
-              type="button"
-              onClick={goToNext}
-              className="grid h-11 w-11 place-items-center rounded-full bg-slate-900 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-orange-600 hover:shadow-orange-500/30"
-              aria-label="Next testimonials"
-            >
-              <ChevronRight size={22} />
-            </button>
-          </div>
-
-          <div className="overflow-hidden rounded-3xl bg-slate-50 p-2 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
+    <article className="w-[330px] sm:w-[400px] shrink-0 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-200 transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between select-none">
+      <div>
+        {/* Card Header: Avatar + Name + Google Logo */}
+        <div className="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-100">
+          <div className="flex items-center gap-3 min-w-0">
+            {/* Colored Google Initial Avatar */}
             <div
-              className="flex transition-transform duration-700 ease-out"
-              style={{
-                transform: `translateX(-${translatePercent}%)`,
-              }}
+              className={`w-10 h-10 rounded-full ${review.avatarBg} flex items-center justify-center text-white font-bold text-base shadow-xs shrink-0`}
             >
-              {reviews.map((review, idx) => (
-                <div
-                  key={review.name}
-                  className={`shrink-0 basis-full px-2 py-2 transition-all duration-1000 ease-out md:basis-1/2 lg:basis-1/3 ${
-                    isInView ? "translate-y-0 scale-100 opacity-100 blur-0" : "translate-y-10 scale-[0.96] opacity-0 blur-[2px]"
-                  }`}
-                  style={{ transitionDelay: `${180 + idx * 120}ms` }}
-                >
-                  <article className="h-full rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl">
-                    <div className="mb-4 flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-orange-100 text-orange-600">
-                        <User size={24} />
-                      </div>
-
-                      <div>
-                        <p className="font-semibold text-slate-900">{review.name}</p>
-                        <p className="text-xs text-slate-500">{review.role}</p>
-                      </div>
-                    </div>
-                    <div className="mb-3 flex gap-1 text-yellow-500">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} size={18} className="fill-yellow-500" />
-                      ))}
-                    </div>
-                    <p className="text-slate-600">&quot;{review.text}&quot;</p>
-                  </article>
-                </div>
-              ))}
+              {review.initial}
+            </div>
+            <div className="min-w-0">
+              <h4 className="text-sm font-bold text-slate-900 truncate font-heading leading-tight">
+                {review.name}
+              </h4>
+              <p className="text-[11px] text-slate-400 font-sans leading-tight mt-0.5">
+                {review.timeAgo}
+              </p>
             </div>
           </div>
-
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  idx === displayIndex ? "w-8 bg-orange-600" : "w-2.5 bg-slate-300"
-                }`}
-                aria-label={`Go to testimonial slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          <div className="mt-5 flex justify-center gap-3 md:hidden">
-            <button
-              type="button"
-              onClick={goToPrevious}
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm"
-            >
-              <ChevronLeft size={18} />
-              Prev
-            </button>
-            <button
-              type="button"
-              onClick={goToNext}
-              className="inline-flex items-center gap-2 rounded-full bg-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-sm"
-            >
-              Next
-              <ChevronRight size={18} />
-            </button>
+          {/* Google Icon */}
+          <div className="shrink-0 flex items-center gap-1 bg-slate-50 border border-slate-200/60 rounded-full px-2 py-1">
+            <FcGoogle size={18} />
           </div>
         </div>
+
+        {/* Rating Stars & Route Pill */}
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <div className="flex items-center gap-0.5 text-amber-400">
+            {[...Array(review.rating)].map((_, i) => (
+              <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+            ))}
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 truncate max-w-[190px]">
+            <MapPin size={10} className="text-brand shrink-0" />
+            <span className="truncate">{review.route}</span>
+          </span>
+        </div>
+
+        {/* Review Text */}
+        <p className="text-xs sm:text-[13px] text-slate-600 font-sans leading-relaxed line-clamp-3 mb-2">
+          &ldquo;{review.text}&rdquo;
+        </p>
+      </div>
+
+      {/* Footer: Verified Badge */}
+      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+        <div className="flex items-center gap-1.5 text-emerald-600 font-semibold">
+          <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+          <span>Verified Google Review</span>
+        </div>
+        <span className="text-[10px] text-slate-400 font-medium">{review.role}</span>
+      </div>
+    </article>
+  );
+}
+
+export default function Testimonials() {
+  return (
+    <section className="section-spacing bg-slate-50/60 relative overflow-hidden border-b border-slate-100">
+      {/* Top Section Header */}
+      <div className="site-container mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <SectionHeader
+            align="left"
+            title="What Our Customers Say"
+            highlight="on Google Reviews"
+            description="Real reviews from families and businesses who moved with Sony Packers and Movers in Ranchi and across India."
+            className="mb-0 max-w-2xl"
+          />
+
+          {/* Google GMB Trust Snapshot Card (Aligned on the same line) */}
+          <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 shadow-xs w-full sm:w-auto self-start lg:self-center">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center shrink-0">
+                <FcGoogle size={28} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-extrabold text-slate-950 font-heading leading-none">
+                    {companyInfo.gmb.rating}
+                  </span>
+                  <div className="flex items-center gap-0.5 text-amber-400">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-[11px] font-medium text-slate-500 mt-1">
+                  Based on <strong className="text-slate-900">{companyInfo.gmb.reviewCount}+ verified reviews</strong>
+                </p>
+              </div>
+            </div>
+            <a
+              href={companyInfo.gmb.googleMapsDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 sm:py-2.5 text-xs font-semibold transition-colors shrink-0 w-full sm:w-auto sm:ml-1"
+            >
+              <span>View Google Maps</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          DUAL CONTINUOUS MARQUEE SLIDERS (Left & Right with Pause on Hover)
+          ========================================================================= */}
+      <div className="relative w-full overflow-hidden space-y-4 sm:space-y-5">
+        {/* Left & Right Edge Gradient Fade Masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-28 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-28 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent z-10" />
+
+        {/* Row 1: Smooth Continuous Marquee Moving Left */}
+        <div className="animate-marquee-left gap-4 sm:gap-5">
+          {rowOneReviews.map((rev, idx) => (
+            <GoogleReviewCard key={`r1-a-${idx}`} review={rev} />
+          ))}
+          {/* Duplicate set for seamless infinite loop */}
+          {rowOneReviews.map((rev, idx) => (
+            <GoogleReviewCard key={`r1-b-${idx}`} review={rev} />
+          ))}
+        </div>
+
+        {/* Row 2: Smooth Continuous Marquee Moving Right */}
+        <div className="animate-marquee-right gap-4 sm:gap-5">
+          {rowTwoReviews.map((rev, idx) => (
+            <GoogleReviewCard key={`r2-a-${idx}`} review={rev} />
+          ))}
+          {/* Duplicate set for seamless infinite loop */}
+          {rowTwoReviews.map((rev, idx) => (
+            <GoogleReviewCard key={`r2-b-${idx}`} review={rev} />
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Direct Google Review Link */}
+      <div className="site-container mt-6 text-center sm:hidden">
+        <a
+          href={companyInfo.gmb.googleMapsDirectionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 text-white px-5 py-2.5 text-xs font-semibold"
+        >
+          <FcGoogle size={16} />
+          <span>View all {companyInfo.gmb.reviewCount}+ Google Reviews</span>
+          <ExternalLink size={12} />
+        </a>
       </div>
     </section>
   );

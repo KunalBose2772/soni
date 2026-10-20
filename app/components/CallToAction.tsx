@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight, PhoneCall } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useInView } from "./useInView";
+import { companyInfo } from "@/lib/company-info";
 
 type CallToActionProps = {
   title?: string;
@@ -14,53 +16,77 @@ type CallToActionProps = {
 };
 
 export default function CallToAction({
-  title = "Ready to Move with Confidence?",
-  subtitle = "Call Sony Packers and Movers now for a fast survey and transparent quote.",
-  primaryHref = "/get-quote",
+  title = "Planning to Shift Your Home or Office?",
+  subtitle = "Talk directly with our Ranchi team for an upfront quotation with zero hidden costs, or book a free home survey before deciding.",
+  primaryHref = "/#quote",
   primaryLabel = "Get Free Quote",
-  secondaryHref = "https://wa.me/8674823125?text=Hello%21%20I%20need%20a%20shifting%20quote.",
+  secondaryHref = companyInfo.whatsappLink("Hello! I'd like an estimate for relocation."),
   secondaryLabel = "WhatsApp Us",
 }: CallToActionProps) {
   const { ref, isInView } = useInView<HTMLDivElement>();
 
   return (
-    <section ref={ref} className="animate-gradient-shift bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 py-16 text-white md:py-24">
-      <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-        <h2
-          className={`text-4xl font-bold transition-all duration-1000 ease-out md:text-5xl ${
-            isInView ? "translate-y-0 scale-100 opacity-100 blur-0" : "translate-y-10 scale-[0.97] opacity-0 blur-[2px]"
-          }`}
-        >
-          {title}
-        </h2>
-        <p
-          className={`mx-auto mt-4 max-w-2xl text-lg text-slate-300 transition-all duration-1000 ease-out ${
-            isInView ? "translate-y-0 scale-100 opacity-100 blur-0" : "translate-y-10 scale-[0.97] opacity-0 blur-[2px]"
-          }`}
-          style={{ transitionDelay: "220ms" }}
-        >
-          {subtitle}
-        </p>
+    <section ref={ref} className="section-spacing bg-white border-b border-slate-100">
+      <div className="site-container">
         <div
-          className={`mt-8 flex flex-wrap justify-center gap-4 transition-all duration-1000 ease-out ${
-            isInView ? "translate-y-0 scale-100 opacity-100 blur-0" : "translate-y-10 scale-[0.97] opacity-0 blur-[2px]"
+          className={`relative rounded-3xl bg-gradient-to-br from-[#16327E] via-[#1A3C8E] to-[#132B66] text-white p-7 sm:p-10 md:p-12 overflow-hidden border border-blue-400/25 shadow-xl transition-all duration-700 ${
+            isInView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
           }`}
-          style={{ transitionDelay: "340ms" }}
         >
-          <Link
-            href={primaryHref}
-            className="rounded-lg bg-orange-600 px-8 py-3 font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-500/30"
-          >
-            {primaryLabel}
-          </Link>
-          <a
-            href={secondaryHref}
-            target="_blank"
-            className="inline-flex items-center gap-2 rounded-xl bg-green-500 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30"
-          >
-            <FaWhatsapp className="text-xl" />
-            {secondaryLabel}
-          </a>
+          {/* Subtle Ambient Decorative Glows */}
+          <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-400/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-300/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 max-w-3xl mx-auto text-center flex flex-col items-center">
+            {/* Natural Human Heading */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-heading text-white leading-tight mb-3">
+              {title.includes("?") ? (
+                <>
+                  {title.replace("?", "")}
+                  <span className="text-amber-400">?</span>
+                </>
+              ) : (
+                <>
+                  {title}{" "}
+                  <span className="text-amber-400">with Confidence</span>
+                </>
+              )}
+            </h2>
+
+            {/* Subtitle in Montserrat */}
+            <p className="text-blue-100 font-sans text-xs sm:text-sm md:text-base leading-relaxed max-w-xl mb-7">
+              {subtitle}
+            </p>
+
+            {/* Clean Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-2xl mx-auto">
+              <Link
+                href={primaryHref}
+                className="btn-brand-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3.5 text-xs sm:text-sm font-bold font-heading transition-all hover:-translate-y-0.5 shadow-md text-center whitespace-nowrap shrink-0 active:scale-95"
+              >
+                <span>{primaryLabel}</span>
+                <ArrowRight size={14} className="shrink-0" />
+              </Link>
+
+              <a
+                href={companyInfo.telLink}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white hover:bg-slate-50 text-slate-950 border border-slate-200/80 px-6 sm:px-7 py-3.5 text-xs sm:text-sm font-bold font-heading transition-all hover:-translate-y-0.5 shadow-xs whitespace-nowrap shrink-0 active:scale-95"
+              >
+                <PhoneCall size={14} className="text-brand shrink-0" />
+                <span>Call {companyInfo.formattedPhone}</span>
+              </a>
+
+              <a
+                href={secondaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white px-6 sm:px-7 py-3.5 text-xs sm:text-sm font-bold font-heading transition-all hover:-translate-y-0.5 shadow-xs whitespace-nowrap shrink-0 active:scale-95"
+              >
+                <FaWhatsapp size={15} className="shrink-0" />
+                <span>{secondaryLabel}</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

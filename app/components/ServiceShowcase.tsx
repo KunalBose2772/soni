@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 import { useInView } from "./useInView";
 import { defaultServiceSlug, getServiceBySlug, services } from "./serviceData";
+import SectionHeader from "./ui/SectionHeader";
 
 type ServiceShowcaseProps = {
   activeSlug?: string;
@@ -29,20 +30,20 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
   }, [showcaseImages.length]);
 
   return (
-    <section ref={ref} className="bg-slate-50 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          className={`mb-10 max-w-3xl transition-all duration-1000 ease-out ${
-            isInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <h2 className="text-4xl font-black text-slate-950 md:text-5xl">Choose the service you need</h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            Tap a service tile below to switch the route and see the matching details, coverage, FAQs, and quote info.
-          </p>
-        </div>
+    <section ref={ref} className="section-spacing bg-slate-50/70 border-b border-slate-100">
+      <div className="site-container">
+        {/* Section Header */}
+        <SectionHeader
+          badge="Relocation Portfolio"
+          badgeIcon={Sparkles}
+          title="Explore Our Comprehensive"
+          highlight="Moving Services"
+          description="Select any service category to inspect vehicle fleet details, multi-layer packing specifications, and direct route pricing."
+          align="center"
+        />
 
-        <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+        {/* 6 Category Tiles */}
+        <div className="grid gap-3.5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-10">
           {services.map((service, idx) => {
             const Icon = service.icon;
             const isActive = service.slug === activeService.slug;
@@ -51,92 +52,97 @@ export default function ServiceShowcase({ activeSlug = defaultServiceSlug }: Ser
               <Link
                 key={service.title}
                 href={`/services/${service.slug}`}
-                className={`group relative overflow-hidden rounded-xl border p-5 text-left transition-all duration-500 ${
+                className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-300 ${
                   isActive
-                    ? "border-transparent bg-sky-600 text-white shadow-lg shadow-sky-500/20"
-                    : "border-slate-200 bg-white text-slate-900 hover:-translate-y-1 hover:shadow-lg"
-                } ${isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}
-                style={{ transitionDelay: `${120 + idx * 80}ms` }}
+                    ? "border-blue-500/80 bg-slate-950 text-white shadow-lg ring-1 ring-blue-500/30"
+                    : "border-slate-200/90 bg-white text-slate-900 hover:-translate-y-1 hover:border-blue-300 hover:shadow-md"
+                } ${isInView ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
+                style={{ transitionDelay: `${100 + idx * 60}ms` }}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-all duration-700 ease-out group-hover:opacity-100">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-slate-950/55" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/70 via-slate-950/30 to-transparent" />
-                </div>
-
                 <div
-                  className={`relative z-10 mb-5 inline-flex rounded-xl p-3 text-white transition-all duration-300 ${
-                    isActive ? "bg-white/15" : `${service.accent} group-hover:scale-110 group-hover:bg-white/15`
+                  className={`mb-3.5 inline-flex rounded-xl p-2.5 transition-transform duration-300 ${
+                    isActive ? "bg-blue-600 text-white shadow-xs" : `${service.accent} text-white group-hover:scale-105`
                   }`}
                 >
-                  <Icon size={24} />
+                  <Icon size={20} />
                 </div>
-                <p className="relative z-10 text-xl font-semibold leading-tight">{service.shortTitle}</p>
-                <div className={`relative z-10 mt-6 h-1 w-14 rounded-full ${isActive ? "bg-white" : "bg-orange-500"}`} />
+                <p className="text-xs sm:text-sm font-bold font-heading leading-tight line-clamp-1">{service.shortTitle}</p>
+                <div className={`mt-3 h-1 w-10 rounded-full transition-all duration-300 ${isActive ? "bg-blue-600 w-14" : "bg-slate-200 group-hover:bg-blue-400 group-hover:w-14"}`} />
               </Link>
             );
           })}
         </div>
 
+        {/* Active Service Showcase Card */}
         <div
-          className={`mt-14 grid gap-8 overflow-hidden rounded-[2rem] bg-white p-4 shadow-[0_10px_40px_rgba(15,23,42,0.08)] transition-all duration-1000 ease-out lg:grid-cols-[1fr_1.05fr] lg:p-6 ${
-            isInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          className={`grid gap-8 overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-7 shadow-xl transition-all duration-700 lg:grid-cols-12 ${
+            isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
-          <div className="relative overflow-hidden rounded-[1.5rem] bg-slate-900">
+          {/* Left Column: Carousel Image Preview */}
+          <div className="lg:col-span-6 relative overflow-hidden rounded-2xl bg-slate-950 min-h-[300px] sm:min-h-[360px]">
             {showcaseImages.map((image, idx) => (
               <img
                 key={`${image}-${idx}`}
                 src={image}
-                alt={`${activeService.title} ${idx + 1}`}
-                className={`absolute inset-0 h-full min-h-[320px] w-full object-cover transition-all duration-700 ${
-                  idx === activeSlide ? "scale-100 opacity-100" : "scale-105 opacity-0"
+                alt={`${activeService.title} preview ${idx + 1}`}
+                className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${
+                  idx === activeSlide ? "scale-100 opacity-100" : "scale-105 opacity-0 pointer-events-none"
                 }`}
               />
             ))}
-            <div className="absolute inset-0 bg-slate-950/35" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-slate-950/30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
+
+            {/* Slider Dots */}
             <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
               {showcaseImages.map((_, idx) => (
-                <span
+                <button
                   key={idx}
-                  className={`h-2.5 rounded-full transition-all ${idx === activeSlide ? "w-7 bg-orange-500" : "w-2.5 bg-white/75"}`}
+                  onClick={() => setActiveSlide(idx)}
+                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                    idx === activeSlide ? "w-6 bg-blue-600" : "w-2 bg-white/70 hover:bg-white"
+                  }`}
+                  aria-label={`Show image ${idx + 1}`}
                 />
               ))}
             </div>
           </div>
 
-          <div className="flex flex-col justify-center p-2 sm:p-4">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-orange-600">Service details</p>
-            <h3 className="mt-3 text-3xl font-black text-slate-950 md:text-4xl">{activeService.title}</h3>
-            <p className="mt-4 text-lg leading-8 text-slate-600">{activeService.description}</p>
+          {/* Right Column: Service Deep Dive */}
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2.5 py-1 rounded-full w-fit mb-2">
+              Verified Service Specifications
+            </span>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold font-heading text-slate-950 leading-tight mb-3">
+              {activeService.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-6">
+              {activeService.description}
+            </p>
 
-            <div className="mt-8 space-y-3">
+            {/* Service Highlights Checklist */}
+            <div className="space-y-2.5 mb-7">
               {activeService.details.map((item, idx) => (
                 <div
                   key={item}
-                  className={`flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 transition-all duration-500 ${
-                    isInView ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${200 + idx * 110}ms` }}
+                  className="flex items-center gap-2.5 rounded-xl border border-slate-100 bg-slate-50 px-3.5 py-2.5 transition-all hover:bg-blue-50/20 hover:border-blue-200/60"
+                  style={{ transitionDelay: `${150 + idx * 80}ms` }}
                 >
-                  <CheckCircle2 size={18} className="text-orange-600" />
-                  <span className="font-medium text-slate-700">{item}</span>
+                  <CheckCircle2 size={16} className="text-blue-600 shrink-0" strokeWidth={2.2} />
+                  <span className="text-xs sm:text-[13px] font-medium font-sans text-slate-800">{item}</span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8">
+            {/* CTA Button */}
+            <div>
               <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-500/30"
+                href="/#quote"
+                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 shadow-none font-sans"
               >
-                Request this service
-                <ArrowRight size={18} />
+                <span>Book This Relocation Service</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>

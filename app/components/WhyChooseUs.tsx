@@ -1,83 +1,104 @@
 "use client";
 
-import { Clock, ShieldCheck, Users, BadgeCheck } from "lucide-react";
-import { useInView } from "./useInView";
-import { siteAssets } from "@/lib/site-assets";
+import { ShieldCheck, Clock, Users, BadgeCheck, Check, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import SectionHeader from "./ui/SectionHeader";
 
 const reasons = [
   {
     icon: ShieldCheck,
-    title: "Safe and Secure Handling",
-    desc: "Premium packing materials and careful loading for every item.",
-    image: siteAssets.sections.whyChooseUs.safeHandling,
-    points: ["Damage-prevention packing", "Handled by trained movers", "Secure transit process"],
+    title: "Careful Multi-Layer Packing",
+    desc: "We use thick bubble wrap, foam sheets, corner protectors, and strong cartons so your TV, fridge, crockery, and furniture stay scratch-free.",
+    points: [
+      "Special care for LED TVs & glassware",
+      "Protective foam for wooden furniture",
+      "Sturdy 5-ply cartons for clothes & books",
+    ],
   },
   {
     icon: Clock,
-    title: "On-Time Delivery",
-    desc: "Structured move plans with timely pickup and promised delivery.",
-    image: siteAssets.sections.whyChooseUs.onTimeDelivery,
-    points: ["Fast response team", "Live move coordination", "Strict time commitment"],
+    title: "Punctual Doorstep Delivery",
+    desc: "Direct closed container trucks dispatched from Ratu Road, Ranchi on fixed schedules with direct phone updates on truck location.",
+    points: [
+      "Closed weatherproof container trucks",
+      "On-time pickup and delivery schedule",
+      "Direct phone coordination with driver",
+    ],
   },
   {
     icon: Users,
-    title: "Trained Professionals",
-    desc: "Experienced relocation crew for residential and office moves.",
-    image: siteAssets.sections.whyChooseUs.trainedProfessionals,
-    points: ["Background verified staff", "Skilled lifting & handling", "Polite support team"],
+    title: "Trained & Respectful Crew",
+    desc: "Our own experienced team handles lifting, dismantling double beds, packing appliances, and placing furniture in your new rooms.",
+    points: [
+      "Disciplined, experienced packing crew",
+      "Careful lifting down tight staircases",
+      "Bed & wardrobe reassembly help",
+    ],
   },
   {
     icon: BadgeCheck,
-    title: "Transparent Pricing",
-    desc: "No hidden charges and complete quote clarity before booking.",
-    image: siteAssets.sections.whyChooseUs.transparentPricing,
-    points: ["Written final quote", "No surprise add-ons", "Best value plans"],
+    title: "Honest & Upfront Rates",
+    desc: "What we quote is what you pay. No sudden charges on delivery day, no labour arguments, and no hidden fees.",
+    points: [
+      "Clear written quotation",
+      "Zero hidden or surprise costs",
+      "Competitive Ranchi & intercity rates",
+    ],
   },
 ];
 
 export default function WhyChooseUs() {
-  const { ref, isInView } = useInView<HTMLDivElement>();
-
   return (
-    <section ref={ref} className="bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2
-          className={`mb-12 text-center text-4xl font-bold text-slate-900 transition-all duration-1000 ease-out md:text-5xl ${
-            isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-10 opacity-0 blur-[2px]"
-          }`}
-        >
-          Why Choose Sony Packers and Movers?
-        </h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {reasons.map((item, idx) => {
+    <section className="section-spacing bg-white border-b border-slate-100">
+      <div className="site-container">
+        {/* Header Block with Left Alignment and Quick CTA */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
+          <SectionHeader
+            align="left"
+            title="Why Families in Ranchi Trust"
+            highlight="Sony Packers and Movers"
+            description="We treat your household goods with the same care as our own. No rough handling, no careless transport, and no hidden charges."
+            className="mb-0 max-w-2xl"
+          />
+
+          <Link
+            href="/#quote"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 shrink-0 font-sans shadow-none self-start lg:self-end"
+          >
+            <span>Book Your Shifting Date</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        {/* 4 Feature Pillars Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {reasons.map((item) => {
             const Icon = item.icon;
             return (
               <article
                 key={item.title}
-                className={`group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-1000 ease-out hover:-translate-y-1 hover:shadow-xl ${
-                  isInView ? "translate-y-0 scale-100 opacity-100 blur-0" : "translate-y-10 scale-[0.96] opacity-0 blur-[2px]"
-                }`}
-                style={{ transitionDelay: `${220 + idx * 150}ms` }}
+                className="group relative flex flex-col justify-between rounded-2xl bg-white border border-slate-200/90 hover:border-slate-350 p-5 shadow-xs transition-all duration-300 overflow-hidden"
               >
-                <div className="relative h-44 overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                </div>
-                <div className="p-5">
-                  <div className="mb-4 inline-flex rounded-lg bg-orange-600 p-3 text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-slate-900">
-                    <Icon size={22} />
+                <div>
+                  {/* Icon Box */}
+                  <div className="w-11 h-11 rounded-xl bg-brand-light text-brand flex items-center justify-center mb-4 transition-colors">
+                    <Icon size={20} strokeWidth={2.2} />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
-                  <p className="mt-2 text-slate-600">{item.desc}</p>
-                  <ul className="mt-4 space-y-1.5 text-sm text-slate-600">
-                    {item.points.map((point) => (
-                      <li key={point} className="flex items-start gap-2">
-                        <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-orange-500" />
-                        <span>{point}</span>
+
+                  {/* Title & Description */}
+                  <h3 className="text-base font-bold text-slate-950 font-heading leading-tight mb-2 group-hover:text-brand transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-slate-600 font-sans leading-relaxed mb-4">
+                    {item.desc}
+                  </p>
+
+                  {/* Benefit Checklist */}
+                  <ul className="space-y-2 border-t border-slate-100 pt-3">
+                    {item.points.map((pt, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-slate-700 font-sans">
+                        <Check size={13} className="text-brand shrink-0 mt-0.5" strokeWidth={2.5} />
+                        <span>{pt}</span>
                       </li>
                     ))}
                   </ul>
@@ -85,6 +106,47 @@ export default function WhyChooseUs() {
               </article>
             );
           })}
+        </div>
+
+        {/* Bottom Trust Metrics Ribbon */}
+        <div className="rounded-2xl bg-brand-primary text-white p-5 sm:p-6 border border-blue-400/25 shadow-lg">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-blue-400/20">
+            <div className="pt-2 sm:pt-0 sm:px-4 first:pl-0">
+              <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
+                1,500<span className="text-brand font-bold">+</span>
+              </p>
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
+                Homes &amp; Offices Shifted
+              </p>
+            </div>
+
+            <div className="pt-2 sm:pt-0 sm:px-4">
+              <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
+                4.7<span className="text-amber-400 font-bold">★</span>
+              </p>
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
+                Verified Google Rating
+              </p>
+            </div>
+
+            <div className="pt-2 sm:pt-0 sm:px-4">
+              <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
+                100<span className="text-brand font-bold">%</span>
+              </p>
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
+                Safe Doorstep Delivery
+              </p>
+            </div>
+
+            <div className="pt-2 sm:pt-0 sm:px-4">
+              <p className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-none">
+                10<span className="text-brand font-bold">+</span>
+              </p>
+              <p className="text-xs text-blue-100 font-medium font-sans mt-1.5">
+                Years Serving Ranchi
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

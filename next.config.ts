@@ -17,10 +17,6 @@ const remotePatterns: RemotePattern[] = [
   },
   {
     protocol: "https",
-    hostname: "www.adarshindiapackers.com",
-  },
-  {
-    protocol: "https",
     hostname: "videos.pexels.com",
   },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin } from "lucide-react";
+import { MapPin, Globe2, ShieldCheck } from "lucide-react";
 import { useInView } from "./useInView";
 
 type ServiceCoverageSectionProps = {
@@ -21,59 +21,85 @@ export default function ServiceCoverageSection({
   const { ref, isInView } = useInView<HTMLDivElement>();
 
   return (
-    <section ref={ref} className="bg-slate-50 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
+    <section ref={ref} className="section-spacing bg-white border-b border-slate-100">
+      <div className="site-container">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+          {/* Left Box: Where We Operate */}
           <div
-            className={`rounded-3xl bg-slate-900 p-6 text-white shadow-2xl shadow-slate-900/15 transition-all duration-1000 ease-out ${
-              isInView ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+            className={`lg:col-span-7 rounded-3xl bg-brand-primary p-6 sm:p-8 text-white shadow-xl border border-blue-400/25 transition-all duration-700 ${
+              isInView ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
             }`}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-300">Where We Operate in Jharkhand</p>
-            <h2 className="mt-3 text-3xl font-black leading-tight md:text-4xl">{heading}</h2>
-            <p className="mt-4 max-w-xl text-slate-300">{intro}</p>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/30 border border-blue-400/40 text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-3">
+              <Globe2 size={12} />
+              <span>Operational Coverage</span>
+            </span>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-heading leading-tight mb-2">
+              {heading}
+            </h2>
+            <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-6">
+              {intro}
+            </p>
+
+            <div className="grid gap-2 sm:grid-cols-2">
               {local.map((city, idx) => (
                 <div
                   key={city}
-                  className={`flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm transition-all duration-1000 ease-out ${
-                    isInView ? "translate-x-0 opacity-100" : idx % 2 === 0 ? "-translate-x-8 opacity-0" : "translate-x-8 opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${180 + idx * 70}ms` }}
+                  className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-xs font-sans text-slate-200 backdrop-blur-xs hover:border-blue-400/40 hover:bg-white/10 transition-all"
+                  style={{ transitionDelay: `${150 + idx * 50}ms` }}
                 >
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-orange-500 text-sm font-bold text-white">
-                    <MapPin size={14} />
+                  <span className="w-6 h-6 rounded-full bg-blue-600/30 text-blue-300 flex items-center justify-center shrink-0">
+                    <MapPin size={12} />
                   </span>
-                  <span className="font-medium text-white">{city}</span>
+                  <span className="font-medium truncate">{city}</span>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Right Box: Coverage Snapshot & Quality Promise */}
           <div
-            className={`rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-1000 ease-out ${
-              isInView ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
+            className={`lg:col-span-5 rounded-3xl border border-slate-200/90 bg-slate-50/70 p-6 shadow-xs transition-all duration-700 ${
+              isInView ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
             }`}
           >
-            <h3 className="text-2xl font-bold text-slate-950">Service coverage snapshot</h3>
-            <p className="mt-3 leading-7 text-slate-600">
-              From Ranchi and nearby localities to key Jharkhand cities, we help families and businesses relocate with the
-              same care and timing.
+            <h3 className="text-lg sm:text-xl font-bold font-heading text-slate-950 mb-2">
+              Route Coverage Snapshot
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-5">
+              From local Ranchi neighborhoods to nationwide interstate logistics, we maintain the highest standard of safety and punctuality.
             </p>
 
-            <div className="mt-6 grid gap-4">
-              <div className="rounded-2xl bg-orange-50 p-5 transition-transform duration-500 hover:-translate-y-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Local moves</p>
-                <p className="mt-2 text-slate-700">{local.join(", ")}.</p>
+            <div className="space-y-3.5">
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-4 shadow-xs">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-700 font-heading">
+                  Local Shifting Coverage
+                </p>
+                <p className="mt-1 text-xs text-slate-700 font-sans leading-relaxed">
+                  {local.join(", ")}.
+                </p>
               </div>
-              <div className="rounded-2xl bg-slate-50 p-5 transition-transform duration-500 hover:-translate-y-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">Intercity routes</p>
-                <p className="mt-2 text-slate-700">{intercity.join(", ")}.</p>
+
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-4 shadow-xs">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-700 font-heading">
+                  Intercity Highway Routes
+                </p>
+                <p className="mt-1 text-xs text-slate-700 font-sans leading-relaxed">
+                  {intercity.join(", ")}.
+                </p>
               </div>
-              <div className="rounded-2xl bg-slate-900 p-5 text-white transition-transform duration-500 hover:-translate-y-1">
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-300">Support promise</p>
-                <p className="mt-2 text-slate-200">{promise}</p>
+
+              <div className="rounded-2xl bg-brand-primary-dark text-white p-4 border border-blue-400/20">
+                <div className="flex items-center gap-1.5 text-blue-300 mb-1">
+                  <ShieldCheck size={14} />
+                  <p className="text-[10px] font-bold uppercase tracking-wider font-heading">
+                    Quality Promise
+                  </p>
+                </div>
+                <p className="text-xs text-blue-100 font-sans leading-relaxed">
+                  {promise}
+                </p>
               </div>
             </div>
           </div>

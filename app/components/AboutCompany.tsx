@@ -1,154 +1,142 @@
 "use client";
 
-import { useInView } from "./useInView";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ShieldCheck,
+  Truck,
+  PackageCheck,
+  Clock,
+  ArrowRight,
+  PhoneCall,
+  Star,
+} from "lucide-react";
+import { companyInfo } from "@/lib/company-info";
+
+const keyHighlights = [
+  {
+    icon: PackageCheck,
+    title: "Safe Multi-Layer Packing",
+    desc: "Quality bubble wrap, corrugated sheets, and foam padding to protect glass, electronics, and furniture.",
+  },
+  {
+    icon: Truck,
+    title: "Dedicated Container Trucks",
+    desc: "Weatherproof container vehicles running directly from Ratu Road, Ranchi to destinations across India.",
+  },
+  {
+    icon: Clock,
+    title: "Punctual Delivery Timelines",
+    desc: "We pick up and deliver on the committed schedule with direct phone updates from our move supervisor.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Clear Written Estimates",
+    desc: "Complete cost breakup with no surprise charges, labour disputes, or hidden fees on delivery day.",
+  },
+];
 
 export default function AboutCompany() {
-  const { ref, isInView } = useInView<HTMLDivElement>();
-
   return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-20 md:py-28"
-    >
-      {/* Background Blur Effects */}
-      <div className="absolute left-0 top-10 h-72 w-72 rounded-full bg-orange-200/30 blur-3xl" />
-      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl" />
+    <section className="section-spacing bg-white border-b border-slate-100">
+      <div className="site-container">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* =========================================================================
+              LEFT COLUMN: Clean Heading, Story Copy, 4 Features, CTAs
+              ========================================================================= */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
+            {/* Standardized Dual-Colored Sora Heading */}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-[40px] font-extrabold font-heading text-slate-950 leading-[1.2] tracking-tight mb-4">
+              Dependable Packers &amp; Movers in{" "}
+              <span className="text-brand">Ranchi &amp; Across India</span>
+            </h2>
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
-        <div className="text-center">
-          <h2
-            className={`text-2xl font-extrabold leading-tight tracking-tight text-slate-900 transition-all duration-1000 md:text-5xl ${
-              isInView
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            Best Packers and Movers <br />
-            Across All Over India
-          </h2>
+            {/* Descriptive Content in Montserrat */}
+            <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
+              Based at{" "}
+              <strong className="text-slate-900 font-semibold">
+                Ratu Road, Ranchi
+              </strong>
+              , Sony Packers and Movers has been helping families and businesses move safely for over a decade. Whether you are moving a 1 BHK flat within Ranchi or shifting your entire home and car to Patna, Kolkata, Delhi, or Bangalore, our own trained crew handles every item with personal care.
+            </p>
 
-          <div
-            className={`mx-auto mt-5 h-1.5 w-28 rounded-full bg-orange-500 transition-all duration-1000 ${
-              isInView ? "scale-100 opacity-100" : "scale-50 opacity-0"
-            }`}
-            style={{ transitionDelay: "250ms" }}
-          />
-        </div>
+            {/* 4 Feature Highlights Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-7">
+              {keyHighlights.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-slate-300 transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-brand-light text-brand flex items-center justify-center shrink-0 mt-0.5">
+                      <Icon size={16} strokeWidth={2.2} />
+                    </div>
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-bold text-slate-950 font-heading leading-tight mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-600 font-sans leading-snug">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-        {/* Paragraph */}
-        <div
-          className={`mx-auto mt-10 max-w-5xl text-center transition-all duration-1000 ease-out ${
-            isInView
-              ? "translate-y-0 opacity-100 blur-0"
-              : "translate-y-12 opacity-0 blur-sm"
-          }`}
-          style={{ transitionDelay: "300ms" }}
-        >
-         <p className="text-lg leading-10 text-slate-600 md:text-[16px]">
-  Looking for the{" "}
-  <span className="font-bold text-slate-900">
-    Best Packers and Movers in India
-  </span>
-  ?{" "}
-  <span className="font-bold text-orange-600">
-    Sony Packers and Movers
-  </span>{" "}
-  is one of the{" "}
-  <span className="font-bold text-slate-900">
-    Top Packers and Movers in India
-  </span>{" "}
-  offering trusted, affordable, and professional relocation services across
-  all major cities and states. We specialize in{" "}
-  <span className="font-semibold text-slate-900">
-    Household Shifting
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Home Shifting Services
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Office Relocation
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Local Shifting
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Domestic Relocation
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Bike Transport
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Car Transport
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Furniture Shifting
-  </span>
-  , and{" "}
-  <span className="font-semibold text-slate-900">
-    Loading and Unloading Services
-  </span>{" "}
-  with complete{" "}
-  <span className="font-semibold text-slate-900">
-    Professional Packing Services
-  </span>
-  and secure handling support.
+            {/* Action Buttons: Unified Rounded-Full */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <Link
+                href="/#quote"
+                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans text-center"
+              >
+                <span>Get Instant Quote</span>
+                <ArrowRight size={14} />
+              </Link>
 
-  Our experienced team focuses on{" "}
-  <span className="font-semibold text-slate-900">
-    Safe Packing
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Secure Transportation
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Damage-Free Delivery
-  </span>
-  ,{" "}
-  <span className="font-semibold text-slate-900">
-    Warehouse Storage
-  </span>
-  , and{" "}
-  <span className="font-semibold text-slate-900">
-    Timely Delivery
-  </span>{" "}
-  to ensure smooth and stress-free relocation for families and businesses.
+              <a
+                href={companyInfo.telLink}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-950 text-slate-800 hover:text-slate-950 bg-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans text-center"
+              >
+                <PhoneCall size={14} className="text-brand shrink-0" />
+                <span>Call {companyInfo.formattedPhone}</span>
+              </a>
+            </div>
+          </div>
 
-  Whether you are searching for{" "}
-  <span className="font-bold text-slate-900">
-    Best Movers and Packers Near Me
-  </span>
-  ,{" "}
-  <span className="font-bold text-slate-900">
-    Affordable Packers and Movers
-  </span>
-  ,{" "}
-  <span className="font-bold text-slate-900">
-    Trusted Relocation Services
-  </span>
-  , or{" "}
-  <span className="font-bold text-slate-900">
-    Intercity Packers and Movers
-  </span>
-  ,{" "}
-  <span className="font-bold text-orange-600">
-    Sony Packers and Movers
-  </span>{" "}
-  is committed to delivering{" "}
-  <span className="font-bold text-slate-900">
-    Hassle-Free Shifting Services Across India
-  </span>
-  .
-</p>
+          {/* =========================================================================
+              RIGHT COLUMN: Moving Team Image with Subtle Rating Badge
+              ========================================================================= */}
+          <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+            {/* Main Image Container */}
+            <div className="relative aspect-[4/3] w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg border border-slate-200/90 group">
+              <Image
+                src="/assets/about/movers-team.jpg"
+                alt="Sony Packers and Movers crew in Ranchi"
+                fill
+                sizes="(max-width: 1024px) 100vw, 500px"
+                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+            </div>
+
+            {/* Social Proof Badge (Clean, Natural) */}
+            <div className="absolute bottom-2 right-2 sm:-bottom-4 sm:-right-2 max-w-[calc(100%-1rem)] z-10 rounded-2xl bg-brand-primary text-white border border-blue-400/20 shadow-lg p-3 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 shrink-0">
+                <Star size={16} className="fill-slate-950 text-slate-950" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white font-heading leading-tight">
+                  4.7 / 5 on Google
+                </p>
+                <p className="text-[10px] text-blue-100 font-sans leading-tight mt-0.5">
+                  136+ Verified Customer Reviews
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

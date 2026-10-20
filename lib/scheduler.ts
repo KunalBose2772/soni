@@ -1,5 +1,6 @@
 import { prisma } from "./prisma";
 import { sendCustomEmail } from "./mail";
+import { companyInfo } from "./company-info";
 
 let isRunning = false;
 
@@ -40,7 +41,7 @@ export function startReminderScheduler() {
       for (const booking of bookingsToRemind) {
         if (!booking.nextFollowUpAt) continue;
 
-        const adminEmail = process.env.ADMIN_EMAIL || "mk020615@gmail.com";
+        const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER || companyInfo.email;
         const formattedFollowUpTime = booking.nextFollowUpAt.toLocaleString("en-IN", {
           timeZone: "Asia/Kolkata",
           dateStyle: "medium",

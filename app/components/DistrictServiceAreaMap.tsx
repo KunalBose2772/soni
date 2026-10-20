@@ -115,75 +115,87 @@ export default function DistrictServiceAreaMap({
   const mapsLink = `https://www.google.com/maps/search/${encodeURIComponent(effectiveMapQuery)}`;
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm animate-pop-in" style={{ animationDelay: "160ms" }}>
-      <div className="relative h-80 w-full overflow-hidden bg-slate-100 md:h-96 animate-fade-up" style={{ animationDelay: "100ms" }}>
+    <div className="overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-md animate-pop-in">
+      <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-slate-100 p-2">
         <iframe
           width="100%"
           height="100%"
-          frameBorder="0"
-          scrolling="no"
-          style={{ border: 0, borderRadius: '12px' }}
+          style={{ border: 0, borderRadius: '1rem' }}
           src={googleMapUrl}
           loading="lazy"
+          title={`Sony Packers service map for ${districtName}`}
         />
       </div>
 
-      <div className="p-4 md:p-6">
+      <div className="p-5 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-md font-black text-slate-950">{mapHeading ?? `Our Service Area in ${districtName}`}</h3>
-            <p className="mt-2 text-sm text-slate-600">
-              We cover all neighbourhoods, pincodes & nearby areas of {effectiveMapQuery}.
+            <h3 className="text-base sm:text-lg font-bold font-heading text-slate-950">
+              {mapHeading ?? `Our Service Hub in ${districtName}`}
+            </h3>
+            <p className="mt-1 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+              We cover all local sectors, neighborhoods, and delivery pincodes across {effectiveMapQuery}.
             </p>
-            <p className="mt-1 text-xs text-slate-400">
-              {coords ? "Coordinate reference available for this location." : "Google Maps query view enabled for this location."}
+            <p className="mt-1 text-[11px] text-slate-400 font-sans">
+              {coords ? "GPS coordinate reference verified for direct dispatch." : "Google Maps query view enabled."}
             </p>
           </div>
         </div>
 
-        <div className="mt-4 border-t border-slate-200 pt-4">
+        <div className="mt-4 border-t border-slate-100 pt-4 flex items-center justify-between">
           <a
             href={mapsLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-100"
+            className="inline-flex items-center gap-2 rounded-full bg-slate-900 hover:bg-blue-600 text-white px-5 py-2.5 text-xs font-semibold font-sans transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
           >
-            <MapPin size={16} />
-            Open in Maps
-            <ExternalLink size={14} />
+            <MapPin size={14} />
+            <span>Open in Google Maps</span>
+            <ExternalLink size={12} />
           </a>
         </div>
 
         <div className="mt-6 space-y-4">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4 shadow-sm animate-fade-left" style={{ animationDelay: "120ms" }}>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-700">Popular routes</p>
-            <ul className="mt-4 space-y-2.5 text-sm leading-6 text-slate-600">
-              {routeEntries.map((route, index) => (
-                <li
-                  key={`${route.key}-${index}`}
-                  className="flex items-center gap-2.5 rounded-2xl bg-white px-3.5 py-2.5 text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                >
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-orange-50 text-orange-600">
-                    <MapPin size={14} />
-                  </span>
-                  <span className="min-w-0 flex-1 truncate text-[15px] font-medium">{route.from}</span>
-                  <ArrowRight size={14} className="shrink-0 text-slate-400" />
-                  <span className="min-w-0 flex-1 truncate text-[15px] font-medium text-slate-950">{route.to}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4 shadow-sm animate-fade-right" style={{ animationDelay: "140ms" }}>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-700">Pincode coverage</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {uniquePincodeCoverage.map((code, index) => (
-                <span key={`${code}-${index}`} className="inline-flex rounded-full bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm">
-                  {code}
-                </span>
-              ))}
+          {routeEntries.length > 0 && (
+            <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 shadow-xs">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-heading mb-3">
+                Frequent Regional Routes
+              </p>
+              <ul className="space-y-2 text-xs leading-5 text-slate-600">
+                {routeEntries.map((route, index) => (
+                  <li
+                    key={`${route.key}-${index}`}
+                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/60 bg-white px-3 py-2 text-slate-800 shadow-xs hover:border-blue-200 transition-colors"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                      <MapPin size={11} />
+                    </div>
+                    <span className="min-w-0 flex-1 truncate text-xs font-medium font-sans text-slate-700">{route.from}</span>
+                    <ArrowRight size={12} className="shrink-0 text-blue-600" />
+                    <span className="min-w-0 flex-1 truncate text-xs font-bold font-sans text-slate-950">{route.to}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          )}
+
+          {uniquePincodeCoverage.length > 0 && (
+            <div className="rounded-2xl border border-slate-200/80 bg-slate-50 p-4 shadow-xs">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-heading mb-3">
+                Covered Pincode Zones
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {uniquePincodeCoverage.map((code, index) => (
+                  <span
+                    key={`${code}-${index}`}
+                    className="inline-flex rounded-full bg-white border border-slate-200/80 px-2.5 py-1 text-[11px] font-medium font-sans text-slate-700 shadow-xs"
+                  >
+                    {code}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

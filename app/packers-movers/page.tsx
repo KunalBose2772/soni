@@ -15,11 +15,14 @@ export default function OperationalCitiesPage() {
   return (
     <main className="overflow-x-clip bg-white">
       <PageHeroBanner
-        title="Operational Cities"
-        subtitle="Browse our city-wise service URLs and open a dedicated landing page for each location."
-        breadcrumb="City Network"
+        title="Our Operational Cities & Hubs"
+        subtitle="Browse our city-wise service network and connect directly with our local moving hub in each region."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Service Locations" },
+        ]}
+        badge="All-India Transit Coverage"
         backgroundImage={siteAssets.pages.getQuote.heroBanner}
-        heightClassName="min-h-[60vh]"
       />
 
       <OperationalCities

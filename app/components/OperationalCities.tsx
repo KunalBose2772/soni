@@ -1,6 +1,9 @@
-import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
+"use client";
 
+import { useState } from "react";
+import Link from "next/link";
+import { ArrowRight, MapPin, Building2, Globe2 } from "lucide-react";
+import SectionHeader from "./ui/SectionHeader";
 import type { OperationalCity } from "@/lib/operational-cities";
 
 type OperationalCitiesProps = {
@@ -10,40 +13,136 @@ type OperationalCitiesProps = {
 };
 
 export default function OperationalCities({
-  title = "Operational Cities",
-  subtitle = "Quick access to our most important service locations. Each city can open its own URL for SEO-friendly landing pages.",
+  title = "Operational Cities &",
+  subtitle = "Direct daily transport connecting Jharkhand, Bihar, and all major cities across India.",
   cities,
 }: OperationalCitiesProps) {
+  const [activeTab, setActiveTab] = useState<"jharkhand" | "bihar" | "panIndia">("jharkhand");
+
+  // Separate into regional groups
+  const jharkhandCities = cities.filter(
+    (c) =>
+      c.href.includes("jharkhand") ||
+      ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh", "Deoghar", "Ramgarh", "Giridih"].includes(c.name)
+  );
+
+  const biharCities = cities.filter(
+    (c) =>
+      c.href.includes("bihar") ||
+      ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur", "Darbhanga", "Purnia", "Begusarai"].includes(c.name)
+  );
+
+  const panIndiaCities = cities.filter(
+    (c) => !c.href.includes("jharkhand") && !c.href.includes("bihar")
+  );
+
+  const displayedCities =
+    activeTab === "jharkhand"
+      ? jharkhandCities.slice(0, 8)
+      : activeTab === "bihar"
+      ? biharCities.slice(0, 8)
+      : (panIndiaCities.length > 0 ? panIndiaCities : cities).slice(0, 8);
+
   return (
-    <section className="bg-slate-50 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-orange-700">Location network</p>
-          <h2 className="mt-3 text-3xl font-black text-slate-950 md:text-5xl">{title}</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-600 md:text-lg">{subtitle}</p>
+    <section className="section-spacing bg-slate-50/70 border-b border-slate-100">
+      <div className="site-container">
+        {/* Header Block */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
+          <SectionHeader
+            align="left"
+            title="Cities We Serve in"
+            highlight="Jharkhand, Bihar & India"
+            description={subtitle}
+            className="mb-0 max-w-2xl"
+          />
+
+          {/* Region Tabs */}
+          <div className="flex items-center gap-1.5 bg-white p-1 rounded-full border border-slate-200 shadow-xs self-start lg:self-end max-w-full overflow-x-auto">
+            <button
+              type="button"
+              onClick={() => setActiveTab("jharkhand")}
+              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                activeTab === "jharkhand"
+                  ? "bg-brand text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Jharkhand
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("bihar")}
+              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                activeTab === "bihar"
+                  ? "bg-brand text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Bihar
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("panIndia")}
+              className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                activeTab === "panIndia"
+                  ? "bg-brand text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Major Metro Cities
+            </button>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cities.map((city, index) => (
+        {/* City Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-8">
+          {displayedCities.map((city) => (
             <Link
               key={city.slug}
               href={city.href}
-              className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-500/10"
-              style={{ animationDelay: `${index * 45}ms` }}
+              className="group flex items-center justify-between gap-3 rounded-2xl border border-slate-200/90 bg-white p-4 shadow-xs hover:shadow-md hover:border-slate-350 transition-all duration-200"
             >
-              <div className="flex items-center gap-3">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-orange-50 text-orange-600 transition-colors group-hover:bg-orange-600 group-hover:text-white">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-brand-light text-brand group-hover:bg-brand group-hover:text-white flex items-center justify-center shrink-0 transition-colors shadow-xs">
                   <MapPin size={18} />
-                </span>
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">Packers And Movers</p>
-                  <h3 className="text-base font-semibold text-slate-950">{city.name}</h3>
-                  <p className="text-sm text-slate-500">Pincode {city.pincode}</p>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">
+                    Pincode {city.pincode}
+                  </p>
+                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-brand transition-colors truncate font-heading">
+                    {city.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-sans truncate">
+                    Service Branch
+                  </p>
                 </div>
               </div>
-              <ArrowRight size={18} className="text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-orange-600" />
+              <div className="w-7 h-7 rounded-full bg-slate-50 group-hover:bg-brand-light text-slate-400 group-hover:text-brand flex items-center justify-center shrink-0 transition-colors">
+                <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+              </div>
             </Link>
           ))}
+        </div>
+
+        {/* Region State Discovery Footer Links */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-4 border-t border-slate-200/80">
+          <Link
+            href="/packers-movers-jharkhand"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-900 bg-white text-slate-800 hover:text-slate-950 px-5 py-2.5 text-xs font-semibold transition-all"
+          >
+            <Building2 size={13} className="text-brand" />
+            <span>All 24 Jharkhand District Hubs</span>
+            <ArrowRight size={12} />
+          </Link>
+          <Link
+            href="/packers-movers-bihar"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-900 bg-white text-slate-800 hover:text-slate-950 px-5 py-2.5 text-xs font-semibold transition-all"
+          >
+            <Globe2 size={13} className="text-brand" />
+            <span>All 38 Bihar District Hubs</span>
+            <ArrowRight size={12} />
+          </Link>
         </div>
       </div>
     </section>

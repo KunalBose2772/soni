@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { companyInfo } from "./company-info";
 
 export type QuoteMailPayload = {
   name: string;
@@ -13,11 +14,11 @@ export type QuoteMailPayload = {
 
 /** Matches Tailwind `bg-gradient-to-r from-orange-600 to-orange-500` for email clients */
 const GRADIENT_ORANGE = "linear-gradient(to right, #ea580c, #f97316)";
-const BRAND = "Sony Packers and Movers";
-const COPYRIGHT = `© 2026 ${BRAND}. All rights reserved.`;
-const CONTACT_EMAIL = "info@sonypackers.com";
-const PHONE_A = "6209280901";
-const PHONE_B = "9835983331";
+const BRAND = companyInfo.name;
+const COPYRIGHT = `© ${new Date().getFullYear()} ${BRAND}. All rights reserved.`;
+const CONTACT_EMAIL = companyInfo.email;
+const PHONE_A = companyInfo.phone;
+const PHONE_B = companyInfo.phone;
 
 function escapeHtml(text: string): string {
   return text
@@ -222,7 +223,6 @@ function adminQuoteText(data: QuoteMailPayload): string {
 
 function customerQuoteHtml(data: QuoteMailPayload): string {
   const first = escapeHtml(data.name.split(/\s+/)[0] || data.name);
-  const n = escapeHtml(data.name);
   const from = escapeHtml(data.movingFrom);
   const to = escapeHtml(data.movingTo);
   const when = escapeHtml(formatMoveDate(data.moveDate));
@@ -292,7 +292,7 @@ function customerQuoteText(data: QuoteMailPayload): string {
 }
 
 export async function sendAdminQuoteNotification(data: QuoteMailPayload): Promise<void> {
-  const admin = process.env.ADMIN_EMAIL;
+  const admin = process.env.ADMIN_EMAIL || process.env.SMTP_USER || companyInfo.email;
   if (!admin) {
     throw new Error("ADMIN_EMAIL is not set.");
   }

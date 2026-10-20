@@ -3,40 +3,56 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, ChevronLeft, ChevronRight, Clock3, MapPin, Shield } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Clock3,
+  MapPin,
+  Shield,
+  Star,
+  ArrowRight,
+} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { siteAssets } from "@/lib/site-assets";
+import { companyInfo } from "@/lib/company-info";
 
 type MediaItem = {
   type: "image" | "video";
   src: string;
+  tag: string;
   title: string;
+  highlightText: string;
   subtitle: string;
   mobileObjectPosition?: string;
 };
 
 const slides: MediaItem[] = [
   {
-    type: "video",
-    src: siteAssets.sections.heroSlider.video,
-    title: "Professional Team and Modern Moving Fleet",
-    subtitle: "Well-trained staff and managed logistics for stress-free relocation.",
-    mobileObjectPosition: "object-center",
-  },
-  
-  {
     type: "image",
     src: siteAssets.sections.heroSlider.slideOne,
-    title: "Trusted Packers and Movers in Ranchi",
-    subtitle: "Safe packing, fast shifting, and transparent pricing from start to finish.",
+    tag: "Ranchi's Trusted Relocation Service",
+    title: "Safe & Reliable Packers and Movers in",
+    highlightText: "Ranchi",
+    subtitle: "Complete home shifting, office relocation, and vehicle transport. Careful packing, respectful staff, and honest pricing.",
     mobileObjectPosition: "object-[58%_center]",
   },
- 
+  {
+    type: "video",
+    src: siteAssets.sections.heroSlider.video,
+    tag: "Multi-Layer Packing Protection",
+    title: "Careful Packing for All Your",
+    highlightText: "Valuable Goods",
+    subtitle: "Quality bubble wrap, foam, and strong cartons so your TV, sofa, fridge, and kitchenware reach safely without a scratch.",
+    mobileObjectPosition: "object-center",
+  },
   {
     type: "image",
     src: siteAssets.sections.heroSlider.slideTwo,
-    title: "Household, Office and Vehicle Relocation",
-    subtitle: "End-to-end support from Ratu Road, Ranchi to anywhere in India.",
+    tag: "Local & All-India Service",
+    title: "Door-to-Door Shifting Across",
+    highlightText: "India",
+    subtitle: "Direct container trucks from Ratu Road, Ranchi to Patna, Kolkata, Delhi NCR, Bangalore, and every district of Jharkhand & Bihar.",
     mobileObjectPosition: "object-[70%_center]",
   },
 ];
@@ -45,140 +61,252 @@ export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setCurrent((prev) => (prev + 1) % slides.length), 5000);
+    const id = setInterval(() => setCurrent((prev) => (prev + 1) % slides.length), 7000);
     return () => clearInterval(id);
   }, []);
 
-  return (
-    <section className="relative h-[84vh] min-h-[615px] overflow-hidden bg-slate-900">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(249,115,22,0.16),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.12),_transparent_24%)]" />
-      <div className="pointer-events-none absolute -left-20 top-20 h-56 w-56 rounded-full bg-orange-500/20 blur-3xl animate-float-slow" />
-      <div className="pointer-events-none absolute right-0 top-16 h-44 w-44 rounded-full bg-white/10 blur-3xl animate-float-slow" />
+  const slide = slides[current];
 
-      {slides.map((slide, idx) => (
+  return (
+    /* =========================================================================
+       EXACT 1-SCREEN VIEWPORT FIT:
+       Desktop: 100dvh minus 120px (40px top bar + 80px navbar)
+       Mobile: 100dvh minus 72px (mobile navbar)
+       No fixed min-height traps so Header + Hero fits in EXACTLY one viewport!
+       ========================================================================= */
+    <section className="relative h-[calc(100dvh-72px)] lg:h-[calc(100dvh-120px)] w-full overflow-hidden bg-slate-950 flex flex-col justify-between select-none">
+      {/* Background Slides with Cinematic Ken-Burns Zoom/Move Effect */}
+      {slides.map((s, idx) => (
         <div
-          key={slide.title}
-          className={`absolute inset-0 transition-opacity duration-700 ${
+          key={s.title}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
             idx === current ? "z-10 opacity-100 pointer-events-auto" : "z-0 opacity-0 pointer-events-none"
           }`}
         >
-          {slide.type === "image" ? (
-            <Image
-              src={slide.src}
-              alt={slide.title}
-              fill
-              priority={idx === current}
-              sizes="100vw"
-              className={`object-cover transition-transform duration-700 ${slide.mobileObjectPosition ?? "object-center"} sm:object-center md:scale-[1.03]`}
-            />
+          {s.type === "image" ? (
+            <div className="relative w-full h-full overflow-hidden">
+              <Image
+                src={s.src}
+                alt={s.title}
+                fill
+                priority={idx === 0}
+                sizes="100vw"
+                className={`object-cover ${s.mobileObjectPosition ?? "object-center"} sm:object-center ${
+                  idx === current ? "animate-hero-ken-burns" : "scale-100"
+                }`}
+              />
+            </div>
           ) : (
-            <video src={slide.src} className="h-full w-full object-cover object-center md:scale-[1.03]" autoPlay muted loop playsInline />
+            <video
+              src={s.src}
+              className="h-full w-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
           )}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/58 to-black/35" />
-          <div className="absolute inset-0 mx-auto flex max-w-7xl items-center px-4 pb-24 pt-20 sm:px-6 sm:pb-28 md:pt-0 lg:px-8">
-            <div className="max-w-3xl text-white">
-              <p className="animate-fade-up mb-3 inline-block rounded-full bg-orange-600/90 px-4 py-1 text-sm font-semibold uppercase tracking-wide shadow-lg shadow-orange-950/30 animate-glow-shift">
-                Sony Packers and Movers
-              </p>
-              <h1 className="animate-fade-up mb-5 text-4xl font-extrabold leading-tight md:text-6xl" style={{ animationDelay: "120ms" }}>
-                {slide.title}
+
+          {/* Clean Filmic Gradient Overlays for High Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/40" />
+        </div>
+      ))}
+
+      {/* =========================================================================
+          MAIN HERO CONTENT (Mathematically Vertically Centered Between Header & Bottom Bar)
+          ========================================================================= */}
+      <div className="relative z-20 flex-1 flex items-center w-full min-h-0">
+        <div className="site-container w-full">
+          <div className="max-w-3xl text-white">
+            {/* Google Rating Pill */}
+            <div className="min-h-[28px] sm:min-h-[32px] flex items-center mb-3 sm:mb-4">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-md px-3.5 py-1 text-[11px] sm:text-xs font-medium text-white border border-white/15">
+                <Star size={12} className="fill-amber-400 text-amber-400 shrink-0" />
+                <span>
+                  <strong className="text-white font-bold">{companyInfo.gmb.rating}</strong>/5 on Google ({companyInfo.gmb.reviewCount}+ customer reviews)
+                </span>
+              </div>
+            </div>
+
+            {/* Dynamic Sora Heading (Fixed Min-Height to eliminate layout shift) */}
+            <div className="min-h-[72px] sm:min-h-[96px] md:min-h-[110px] lg:min-h-[125px] flex items-center mb-2.5 sm:mb-3.5">
+              <h1
+                key={`title-${current}`}
+                className="animate-hero-content text-2xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold font-heading text-white leading-[1.15] tracking-tight"
+              >
+                {slide.title}{" "}
+                <span className="text-brand">{slide.highlightText}</span>
               </h1>
-              <p className="animate-fade-up mb-8 max-w-2xl text-lg text-slate-200 md:text-xl" style={{ animationDelay: "220ms" }}>
+            </div>
+
+            {/* Refined Subtitle (Fixed Min-Height to eliminate layout shift) */}
+            <div className="min-h-[40px] sm:min-h-[48px] flex items-center mb-5 sm:mb-7">
+              <p
+                key={`sub-${current}`}
+                className="animate-hero-sub text-xs sm:text-sm md:text-base text-slate-200/90 font-sans leading-relaxed max-w-2xl"
+              >
                 {slide.subtitle}
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/get-quote"
-                  className="rounded-lg bg-orange-600 px-7 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-500/30"
-                >
-                  Get Free Quote
-                </Link>
-                <Link
-                  href="https://wa.me/8674823125?text=Hello%21%20I%20need%20a%20shifting%20quote."
-                  target="_blank"
-                  className="inline-flex items-center gap-2 rounded-xl bg-green-500 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30"
-                >
-                  <FaWhatsapp className="text-xl" />
-                  WhatsApp Us
-                </Link>
-                <Link
-                  href="/services/household"
-                  className="rounded-lg border border-white/70 px-7 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-slate-900"
-                >
-                  Explore Services
-                </Link>
+            </div>
+
+            {/* Action Buttons: Unified Rounded-Full, Title Case, font-semibold (Zero Blurry Shadow) */}
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 mb-5 sm:mb-7">
+              <Link
+                href="/#quote"
+                className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 active:translate-y-0 font-sans"
+              >
+                <span>Get Free Quote</span>
+                <ArrowRight size={14} />
+              </Link>
+
+              <a
+                href={companyInfo.whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 active:translate-y-0 font-sans shadow-xs"
+              >
+                <FaWhatsapp className="text-base" />
+                <span>WhatsApp Us</span>
+              </a>
+
+              <Link
+                href="/services/household"
+                className="hidden sm:inline-flex items-center justify-center rounded-full border border-white/25 hover:border-white/50 bg-white/5 hover:bg-white/10 text-white/90 hover:text-white px-4 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans"
+              >
+                <span>Explore Services</span>
+              </Link>
+            </div>
+
+            {/* Highly Optimized Trust Stats (Visible on All Devices) */}
+            <div className="flex items-center gap-3.5 sm:gap-6 lg:gap-8 pt-3 sm:pt-4 border-t border-white/15 max-w-lg">
+              <div>
+                <p className="text-lg sm:text-2xl lg:text-3xl font-extrabold font-heading text-white leading-none">
+                  10<span className="text-brand font-bold">+</span>
+                </p>
+                <p className="mt-1 text-[10px] sm:text-xs font-medium text-slate-300 font-sans tracking-wide">
+                  Years in Ranchi
+                </p>
               </div>
-              <div className="mt-5 mb-3 grid w-full max-w-md grid-cols-3 gap-2 sm:mt-8 sm:mb-4 sm:max-w-xl sm:gap-4">
-                <div className="animate-fade-up" style={{ animationDelay: "320ms" }}>
-                  <p className="text-[1rem] font-extrabold leading-none text-orange-500 sm:text-4xl">100+</p>
-                  <p className="mt-1 text-[11px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-sm">
-                    Happy Customers
-                  </p>
-                </div>
-                <div className="animate-fade-up" style={{ animationDelay: "420ms" }}>
-                  <p className="text-[1rem] font-extrabold leading-none text-orange-500 sm:text-4xl">100%</p>
-                  <p className="mt-1 text-[11px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-sm">
-                    Safe Delivery
-                  </p>
-                </div>
-                <div className="animate-fade-up" style={{ animationDelay: "520ms" }}>
-                  <p className="text-[1rem] font-extrabold leading-none text-orange-500 sm:text-4xl">Pan-India</p>
-                  <p className="mt-1 text-[11px] font-semibold uppercase leading-tight tracking-wide text-slate-300 sm:text-sm">
-                    Coverage
-                  </p>
-                </div>
+
+              <div className="h-6 sm:h-7 lg:h-8 w-px bg-white/15 shrink-0" />
+
+              <div>
+                <p className="text-lg sm:text-2xl lg:text-3xl font-extrabold font-heading text-white leading-none">
+                  1,500<span className="text-brand font-bold">+</span>
+                </p>
+                <p className="mt-1 text-[10px] sm:text-xs font-medium text-slate-300 font-sans tracking-wide">
+                  Moves Completed
+                </p>
+              </div>
+
+              <div className="h-6 sm:h-7 lg:h-8 w-px bg-white/15 shrink-0" />
+
+              <div>
+                <p className="text-base sm:text-xl lg:text-2xl font-bold font-heading text-white leading-none whitespace-nowrap">
+                  All-India
+                </p>
+                <p className="mt-1 text-[10px] sm:text-xs font-medium text-slate-300 font-sans tracking-wide">
+                  Direct Delivery
+                </p>
               </div>
             </div>
           </div>
         </div>
-      ))}
-
-      <button
-        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white hover:bg-white/40"
-        onClick={() => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)}
-        aria-label="Previous slide"
-      >
-        <ChevronLeft />
-      </button>
-      <button
-        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white hover:bg-white/40"
-        onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        aria-label="Next slide"
-      >
-        <ChevronRight />
-      </button>
-
-      <div className="absolute bottom-14 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:bottom-16">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrent(idx)}
-            className={`h-2.5 rounded-full transition-all ${idx === current ? "w-8 bg-orange-500" : "w-2.5 bg-white/60"}`}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-20 bg-orange-500 py-1 text-white sm:py-3">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 text-xs font-semibold sm:text-sm">
-          <p className="flex items-center gap-2">
-            <Check size={14} />
-            No Hidden Charges
-          </p>
-          <p className="flex items-center gap-2">
-            <Shield size={14} />
-            Transit Insurance Available
-          </p>
-          <p className="flex items-center gap-2">
-            <MapPin size={14} />
-            GPS-Tracked Vehicles
-          </p>
-          <p className="flex items-center gap-2">
-            <Clock3 size={14} />
-            On-Time Delivery
-          </p>
+      {/* =========================================================================
+          SLIDE CONTROLS (Positioned Absolutely - Responsive on Desktop and Mobile)
+          ========================================================================= */}
+      <div className="absolute z-30 bottom-3 right-4 lg:bottom-16 lg:right-12 flex items-center gap-2.5 sm:gap-3">
+        {/* Slide Indicator Tabs (Interactive Pills) */}
+        <div className="flex items-center gap-1.5">
+          {slides.map((s, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setCurrent(idx)}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === current ? "w-7 sm:w-8 bg-brand" : "w-2 sm:w-2.5 bg-white/30 hover:bg-white/60"
+              }`}
+              aria-label={`Go to slide ${idx + 1}: ${s.tag}`}
+            />
+          ))}
+        </div>
+
+        {/* Next / Prev Controls */}
+        <div className="flex items-center gap-1 bg-slate-900/80 backdrop-blur-md rounded-full border border-white/15 px-2 py-1">
+          <button
+            type="button"
+            className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full text-slate-300 hover:text-white hover:bg-white/15 transition-all"
+            onClick={() => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={14} />
+          </button>
+          <span className="text-[10px] sm:text-[11px] font-bold font-mono text-slate-300 px-0.5">
+            0{current + 1} / 0{slides.length}
+          </span>
+          <button
+            type="button"
+            className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full text-slate-300 hover:text-white hover:bg-white/15 transition-all"
+            onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
+            aria-label="Next slide"
+          >
+            <ChevronRight size={14} />
+          </button>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          BOTTOM ASSURANCE BAR (Hidden on Mobile, Visible on Tablet / Desktop)
+          ========================================================================= */}
+      <div className="hidden sm:block relative z-30 w-full border-t border-white/15 bg-brand-primary-dark/95 backdrop-blur-md text-slate-200 py-3 sm:py-3.5 shrink-0">
+        <div className="site-container">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 items-center">
+            {/* 1. Zero Hidden Charges */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shrink-0 shadow-sm">
+                <Check size={16} className="text-white" strokeWidth={2.5} />
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
+                Zero Hidden Charges
+              </p>
+            </div>
+
+            {/* 2. Safe Multi-Layer Packing */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shrink-0 shadow-sm">
+                <Shield size={16} className="text-white" strokeWidth={2.2} />
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
+                Multi-Layer Packing
+              </p>
+            </div>
+
+            {/* 3. Dedicated Container Trucks */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shrink-0 shadow-sm">
+                <MapPin size={16} className="text-white" strokeWidth={2.2} />
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
+                Dedicated Container Trucks
+              </p>
+            </div>
+
+            {/* 4. On-Time Doorstep Delivery */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white shrink-0 shadow-sm">
+                <Clock3 size={16} className="text-white" strokeWidth={2.2} />
+              </div>
+              <p className="text-xs sm:text-sm font-semibold text-white leading-tight">
+                On-Time Doorstep Delivery
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+

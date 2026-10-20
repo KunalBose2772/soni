@@ -1,125 +1,161 @@
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Sparkles } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import PageHeroBanner from "../components/PageHeroBanner";
 import QuoteForm from "../components/QuoteForm";
+import SectionHeader from "../components/ui/SectionHeader";
+import CallToAction from "../components/CallToAction";
 import { siteAssets } from "@/lib/site-assets";
+import { companyInfo } from "@/lib/company-info";
 
 const cities = [
- "Ranchi",
-"Dhanbad",
-"Jamshedpur",
-"Bokaro",
-"Hazaribagh",
-"Deoghar",
-"Patna",
-"Gaya",
-"Muzaffarpur",
-"Delhi",
-"Noida",
-"Kolkata",
-"Mumbai",
-"Pune",
-"Ahmedabad",
-"Surat",
-"Bangalore",
-"Hyderabad",
-"Chennai",
-"Lucknow",
-"Jaipur",
-"Bhubaneswar",
+  "Ranchi", "Dhanbad", "Jamshedpur", "Bokaro", "Hazaribagh", "Deoghar",
+  "Patna", "Gaya", "Muzaffarpur", "Delhi NCR", "Noida", "Kolkata",
+  "Mumbai", "Pune", "Ahmedabad", "Surat", "Bangalore", "Hyderabad",
+  "Chennai", "Lucknow", "Jaipur", "Bhubaneswar",
 ];
 
 export default function ContactPage() {
   return (
-    <>
+    <main className="overflow-x-clip bg-white">
       <PageHeroBanner
         title="Contact Sony Packers and Movers"
-        subtitle="Get quick support, a free quote, and location help for your next move."
-        breadcrumb="Contact"
+        subtitle="Speak with our Ranchi dispatch coordinators for instant booking, free on-site survey, and transparent relocation quotes."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Contact Us" },
+        ]}
+        badge="24x7 Customer Helpline"
         backgroundImage={siteAssets.pages.contact.heroBanner}
       />
 
-      <section className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="grid items-stretch gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="flex h-full flex-col rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-950/15">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-300">Office Info</p>
-              <h2 className="mt-3 text-3xl font-black md:text-4xl">Reach us for booking and support</h2>
-              <p className="mt-4 text-slate-300">
-                We are available for household shifting, office relocation, vehicle transport, loading, and storage support.
-              </p>
+      {/* =========================================================================
+          SECTION 1: CONTACT DETAILS & INSTANT QUOTE FORM
+          ========================================================================= */}
+      <section className="section-spacing bg-white border-b border-slate-100">
+        <div className="site-container">
+          <div className="grid items-stretch gap-8 lg:grid-cols-12">
+            {/* Left Column: Office Information in Royal Blue */}
+            <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl bg-brand-primary p-6 sm:p-8 text-white shadow-xl border border-blue-400/20 relative overflow-hidden">
+              <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="mt-8 space-y-4">
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <MapPin size={18} className="mt-0.5 shrink-0 text-orange-400" />
-                  Shop no- 302 Anmol plaza Ratu road Ranchi opposite Nirvachan bhawan.
+              <div className="relative z-10">
+                <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white leading-tight mb-2">
+                  Reach Us for Bookings &amp; Inquiries
+                </h2>
+                <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-6">
+                  Available around the clock for household moves, corporate office relocations, car/bike carrier services, and warehouse storage.
                 </p>
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <Phone size={18} className="mt-0.5 shrink-0 text-orange-400" />
-                  +91 6209280901
-                </p>
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <Phone size={18} className="mt-0.5 shrink-0 text-orange-400" />
-                  +91  6209580901
-                </p>
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <FaWhatsapp size={18} className="mt-0.5 shrink-0 text-green-400" />
-                  +91 9835983331
-                </p>
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <Mail size={18} className="mt-0.5 shrink-0 text-orange-400" />
-                  sonypackersranchi@gmail.com
-                </p>
-                <p className="flex gap-3 rounded-2xl bg-white/5 px-4 py-4 text-slate-100">
-                  <Clock size={18} className="mt-0.5 shrink-0 text-orange-400" />
-                  Mon-Sun, 24x7 Support
-                </p>
+
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3 rounded-2xl bg-white/5 border border-white/10 p-3.5 text-slate-200">
+                    <MapPin size={18} className="mt-0.5 shrink-0 text-brand" />
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">Office Address</p>
+                      <p className="text-xs sm:text-sm font-sans mt-0.5">{companyInfo.address.full}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 p-3.5 text-slate-200">
+                    <Phone size={18} className="shrink-0 text-brand" />
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">Phone Helpline</p>
+                      <a href={companyInfo.telLink} className="text-xs sm:text-sm font-sans font-bold hover:text-brand transition-colors">
+                        {companyInfo.formattedPhone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 p-3.5 text-slate-200">
+                    <FaWhatsapp size={19} className="shrink-0 text-emerald-400" />
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">WhatsApp Booking</p>
+                      <a
+                        href={companyInfo.whatsappLink()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-sans font-bold text-emerald-400 hover:text-emerald-300 transition-colors"
+                      >
+                        {companyInfo.formattedPhone} (Chat 24x7)
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 p-3.5 text-slate-200">
+                    <Mail size={18} className="shrink-0 text-sky-400" />
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">Official Email</p>
+                      <a href={`mailto:${companyInfo.email}`} className="text-xs sm:text-sm font-sans hover:text-sky-300 transition-colors">
+                        {companyInfo.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 p-3.5 text-slate-200">
+                    <Clock size={18} className="shrink-0 text-amber-400" />
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-heading">Working Hours</p>
+                      <p className="text-xs sm:text-sm font-sans">{companyInfo.workingHours}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="h-full rounded-3xl bg-slate-50 p-4 shadow-sm md:p-6">
+            {/* Right Column: Quote Form Card */}
+            <div className="lg:col-span-7 rounded-3xl bg-slate-50 border border-slate-200/90 p-5 sm:p-8 shadow-xs">
               <QuoteForm />
             </div>
           </div>
 
-          <section className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-            <h3 className="text-2xl font-black text-slate-950">Cities We Serve Across India</h3>
-            <div className="mt-5 flex flex-wrap gap-3">
+          {/* Service Cities Pill Matrix */}
+          <div className="mt-8 rounded-3xl border border-slate-200/90 bg-white p-6 shadow-xs">
+            <h3 className="text-base sm:text-lg font-bold font-heading text-slate-950 mb-3">
+              Cities We Directly Serve Across India
+            </h3>
+            <div className="flex flex-wrap gap-2 mb-3">
               {cities.map((city) => (
                 <span
                   key={city}
-                  className="rounded-full bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 transition-colors hover:bg-blue-100"
+                  className="rounded-full bg-slate-50 border border-slate-200/70 px-3.5 py-1 text-xs font-semibold font-sans text-slate-700 hover:border-blue-300 hover:text-blue-700 transition-colors"
                 >
                   {city}
                 </span>
               ))}
             </div>
-            <p className="mt-5 text-slate-500">Safe, Reliable & Hassle-Free Relocation Across All Major Indian Cities.</p>
-          </section>
+            <p className="text-xs text-slate-500 font-sans">
+              Safe, reliable, and insured relocations connecting Jharkhand, Bihar, and all major Indian metropolitan cities.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-600">Find Us On Map</p>
-            <h2 className="mt-3 text-3xl font-black text-slate-950 md:text-4xl">Visit our Ranchi office location</h2>
-            <p className="mt-3 text-slate-600">
-              You can use the map below to see our office spot and reach us easily from Ratu Road and nearby areas.
-            </p>
-          </div>
+      {/* =========================================================================
+          SECTION 2: INTERACTIVE OFFICE LOCATION MAP
+          ========================================================================= */}
+      <section className="section-spacing bg-slate-50/70 border-b border-slate-100">
+        <div className="site-container">
+          <SectionHeader
+            badge="Office Location"
+            title="Visit Our Ranchi Central"
+            highlight="Headquarters"
+            description="Centrally located opposite Nirvachan Bhawan on Ratu Road. Feel free to walk in for direct booking consultations, route planning, and vehicle inspections."
+            align="center"
+          />
 
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-2.5 shadow-xl">
             <iframe
-              src="https://www.google.com/maps?q=Shop%20no-%20302%20Anmol%20plaza%20Ratu%20road%20Ranchi%20opposite%20Nirvachan%20bhawan&output=embed"
-              title="Sony Packers and Movers Location"
-              className="h-[420px] w-full border-0 md:h-[520px]"
+              src={companyInfo.mapEmbedUrl}
+              title="Sony Packers and Movers Ratu Road Ranchi Location"
+              className="h-[400px] sm:h-[480px] w-full rounded-2xl border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
         </div>
       </section>
-    </>
+
+      {/* Reusable Final CTA */}
+      <CallToAction />
+    </main>
   );
 }

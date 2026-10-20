@@ -1,6 +1,8 @@
 import HeroSlider from "./HeroSlider";
+import QuickLeadSection from "./QuickLeadSection";
 import AboutCompany from "./AboutCompany";
 import Services from "./Services";
+import PricingGuideSection from "./PricingGuideSection";
 import WhyChooseUs from "./WhyChooseUs";
 import Process from "./Process";
 import Testimonials from "./Testimonials";
@@ -9,21 +11,22 @@ import OperationalCities from "./OperationalCities";
 import CallToAction from "./CallToAction";
 import NationalCoverageMap from "./NationalCoverageMap";
 import { operationalCities } from "@/lib/operational-cities";
-// import AboutCompany from "./AboutCompany";
 
 export default function HomeSections() {
   return (
     <>
       <HeroSlider />
+      <QuickLeadSection />
       <AboutCompany />
       <Services />
+      <PricingGuideSection />
       <WhyChooseUs />
       <Process />
       <Testimonials />
       <FAQSection />
       <OperationalCities
-        title="Operational Cities"
-        subtitle="Browse every service location we support across India with the same clean city-card layout."
+        title="Cities We Serve Across"
+        subtitle="Regular container vehicles connecting Ranchi with all districts of Jharkhand, Bihar, and major cities across India."
         cities={operationalCities}
       />
       <CallToAction />

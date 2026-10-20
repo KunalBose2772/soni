@@ -1,46 +1,32 @@
 "use client";
 
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, MapPin, Truck, PhoneCall } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import PageHeroBanner from "../components/PageHeroBanner";
 import { useInView } from "../components/useInView";
-import { FaWhatsapp } from "react-icons/fa";
-import { ArrowRight, CheckCircle2, MapPin, Truck } from "lucide-react";
 import FactsSection from "../components/FactsSection";
+import WhyChooseUs from "../components/WhyChooseUs";
+import Process from "../components/Process";
 import { siteAssets } from "@/lib/site-assets";
 import CallToAction from "../components/CallToAction";
 import OperationalCities from "../components/OperationalCities";
 import { operationalCities } from "@/lib/operational-cities";
-
-
+import { companyInfo } from "@/lib/company-info";
 
 const highlights = [
-  "Dedicated and professional movers",
-  "Transparent pricing with no hidden charges",
-  "Careful packing, secure transport, and on-time delivery",
+  "Dedicated and full-time trained packing crew",
+  "100% transparent pricing with zero hidden delivery day fees",
+  "3-layer protective packing with scheduled on-time delivery",
+  "Dedicated move manager with GPS route tracking",
 ];
 
 const zones = [
-  "Ranchi",
-
-  "Jamshedpur",
-  "Bokaro",
-
-
-  "Patna",
-  "Gaya",
-
-  "Delhi",
-  "Noida",
-  "Kolkata",
-  "Mumbai",
-  "Pune",
-  "Ahmedabad",
-  "Surat",
-  "Bangalore",
-  "Hyderabad",
-  "Chennai",
-  "Lucknow",
-  "Jaipur",
-  "Bhubaneswar"
+  "Ranchi", "Jamshedpur", "Bokaro", "Dhanbad", "Hazaribagh",
+  "Patna", "Gaya", "Muzaffarpur", "Bhagalpur",
+  "Delhi NCR", "Noida", "Kolkata", "Mumbai", "Pune",
+  "Ahmedabad", "Surat", "Bangalore", "Hyderabad",
+  "Chennai", "Lucknow", "Jaipur", "Bhubaneswar"
 ];
 
 export default function AboutPage() {
@@ -50,121 +36,139 @@ export default function AboutPage() {
   return (
     <main className="overflow-x-clip bg-white">
       <PageHeroBanner
-        title="About Us"
-        subtitle="When you call us, you can rest assured that we'll take care of every detail of your move."
-        breadcrumb="About Us"
+        title="About Sony Packers and Movers"
+        subtitle="Ranchi's trusted relocation specialists offering household shifting, office moves, vehicle carrier services, and secure storage across India."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About Us" },
+        ]}
+        badge="Established Relocation Specialists"
         backgroundImage={siteAssets.pages.about.heroBanner}
-        heightClassName="min-h-[72vh]"
       />
 
-      <section ref={whoRef} className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+      {/* =========================================================================
+          SECTION 1: WHO WE ARE (COLLAGE + VALUE PROPOSITION)
+          ========================================================================= */}
+      <section ref={whoRef} className="section-spacing bg-white border-b border-slate-100">
+        <div className="site-container">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+            {/* Left Column: Visual Collage with Floating Badges */}
             <div
-              className={`grid gap-4 transition-all duration-1000 ease-out sm:grid-cols-2 ${whoInView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-                }`}
+              className={`lg:col-span-6 grid gap-4 transition-all duration-700 sm:grid-cols-2 ${
+                whoInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+              }`}
             >
               <div className="space-y-4">
-                <div className="group overflow-hidden rounded-2xl bg-slate-900 shadow-2xl shadow-slate-900/15">
+                <div className="group overflow-hidden rounded-2xl bg-slate-100 border border-slate-200/80 shadow-md">
                   <img
                     src={siteAssets.common.aboutCollageOne}
-                    alt="Sony Packers and Movers service collage"
-                    className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    alt="Professional movers packing household furniture safely"
+                    className="h-56 sm:h-64 w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
-                <div className="overflow-hidden rounded-2xl bg-orange-600 p-6 text-white shadow-lg shadow-orange-500/20 transition-transform duration-700 hover:-translate-y-1">
+                <div className="overflow-hidden rounded-2xl bg-blue-600 p-5 text-white shadow-md transition-transform duration-300 hover:-translate-y-1">
                   <div className="flex items-center gap-3">
-                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-white/15">
-                      <Truck size={24} />
+                    <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                      <Truck size={22} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-sm uppercase tracking-[0.24em] text-orange-100">Ranchi based</p>
-                      <p className="text-xl font-semibold">Trusted packing and moving support</p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-blue-100">Headquartered in Ranchi</p>
+                      <p className="text-base font-bold font-heading">Ratu Road Central Hub</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-0 space-y-4 sm:mt-12">
-                <div className="overflow-hidden rounded-2xl bg-slate-900 shadow-2xl shadow-slate-900/15 transition-transform duration-700 hover:-translate-y-1">
+              <div className="mt-0 space-y-4 sm:mt-10">
+                <div className="overflow-hidden rounded-2xl bg-slate-100 border border-slate-200/80 shadow-md transition-transform duration-300 hover:-translate-y-1">
                   <img
                     src={siteAssets.common.aboutCollageTwo}
-                    alt="Safe moving and relocation service"
-                    className="h-full w-full object-cover transition-transform duration-1000 hover:scale-105"
+                    alt="Clean unbranded white container moving truck"
+                    className="h-44 sm:h-48 w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-700 hover:-translate-y-1 hover:shadow-lg">
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-orange-600">What we do</p>
-                  <p className="mt-2 text-slate-600">
-                    From careful packing to safe transport and smooth unloading, we keep every move organized and stress-free.
+                <div className="rounded-2xl border border-slate-200/90 bg-slate-50 p-4 shadow-xs">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-full">
+                    What We Do
+                  </span>
+                  <p className="mt-2 text-xs text-slate-600 font-sans leading-relaxed">
+                    From 3-layer protective packing to GPS-monitored transit and room setup, we ensure zero-stress moving.
                   </p>
                 </div>
-                <div className="overflow-hidden rounded-2xl bg-slate-900 shadow-2xl shadow-slate-900/15 transition-transform duration-700 hover:-translate-y-1">
+                <div className="overflow-hidden rounded-2xl bg-slate-100 border border-slate-200/80 shadow-md transition-transform duration-300 hover:-translate-y-1">
                   <img
                     src={siteAssets.common.aboutCollageThree}
-                    alt="Packing and moving brand visual"
-                    className="h-full w-full object-cover transition-transform duration-1000 hover:scale-105"
+                    alt="Happy family settled in their new home with packed boxes"
+                    className="h-44 sm:h-48 w-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>
               </div>
             </div>
 
+            {/* Right Column: Company Story & Highlights */}
             <div
-              className={`flex flex-col justify-center transition-all duration-1000 ease-out ${whoInView ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-                }`}
+              className={`lg:col-span-6 flex flex-col justify-center transition-all duration-700 ${
+                whoInView ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+              }`}
             >
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-green-700">Who We Are</p>
-              <h2 className="max-w-2xl text-4xl font-black leading-tight text-slate-950 md:text-6xl">
-                Welcome To Sony Packers and Movers in Ranchi
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-heading text-slate-950 leading-tight tracking-tight mb-4">
+                Welcome to Sony Packers and Movers{" "}
+                <span className="text-brand">in Ranchi</span>
               </h2>
 
-              <div className="mt-6 flex items-start gap-4 rounded-2xl border-l-4 border-orange-500 bg-slate-50 p-5 shadow-sm">
-                <div className="mt-1 text-orange-600">
-                  <MapPin size={22} />
+              <div className="flex items-start gap-3.5 rounded-2xl border-l-4 border-brand bg-slate-50 p-4 shadow-xs mb-4">
+                <div className="mt-0.5 text-brand shrink-0">
+                  <MapPin size={20} />
                 </div>
-                <p className="text-lg leading-8 text-slate-600">
-                  Our trusted packers and movers service in Ranchi ensures safe, smooth, and hassle-free relocation every time.
+                <p className="text-xs sm:text-sm text-slate-700 font-sans font-medium leading-relaxed">
+                  Headquartered at <strong className="text-slate-950 font-semibold">{companyInfo.address.short}</strong>. Delivering seamless local moves in Ranchi and daily dedicated routes across India.
                 </p>
               </div>
 
-              <p className="mt-6 text-lg leading-8 text-slate-600">
-                Sony Packers and Movers offers reliable, affordable, and secure relocation services for homes, offices, vehicles,
-                and storage needs across Jharkhand. We focus on professional packing, timely delivery, and complete customer
-                satisfaction from the first call to final unloading.
+              <p className="text-xs sm:text-sm md:text-base text-slate-600 font-sans leading-relaxed mb-6">
+                Sony Packers and Movers is recognized as one of Jharkhand&apos;s most reliable relocation partners. We provide complete end-to-end packing, loading, transit insurance, and unpacking solutions tailored for apartments, bungalows, corporate offices, vehicles, and long-term warehousing.
               </p>
 
-              <div className="mt-8 space-y-3">
+              {/* 4 Key Checklist Points */}
+              <div className="space-y-2.5 mb-7">
                 {highlights.map((item, idx) => (
                   <div
                     key={item}
-                    className={`flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-700 ease-out ${whoInView ? "translate-x-0 opacity-100" : idx % 2 === 0 ? "-translate-x-6 opacity-0" : "translate-x-6 opacity-0"
-                      }`}
-                    style={{ transitionDelay: `${180 + idx * 120}ms` }}
+                    className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white px-3.5 py-2.5 shadow-xs"
+                    style={{ transitionDelay: `${150 + idx * 80}ms` }}
                   >
-                    <CheckCircle2 size={18} className="text-orange-600" />
-                    <span className="font-medium text-slate-700">{item}</span>
+                    <CheckCircle2 size={16} className="text-brand shrink-0" strokeWidth={2.2} />
+                    <span className="text-xs sm:text-sm font-medium font-sans text-slate-800">{item}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-700 hover:shadow-lg hover:shadow-orange-500/25"
+              {/* Action Buttons: Unified Rounded-Full */}
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href="/#quote"
+                  className="btn-brand-primary inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 py-3 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5 font-sans"
                 >
-                  Get in touch
-                  <ArrowRight size={18} />
+                  <span>Get Instant Quote</span>
+                  <ArrowRight size={14} />
+                </Link>
+
+                <a
+                  href={companyInfo.telLink}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 hover:border-slate-950 text-slate-800 hover:text-slate-950 bg-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 font-sans"
+                >
+                  <PhoneCall size={13} className="text-brand" />
+                  <span>Call {companyInfo.formattedPhone}</span>
                 </a>
 
-
                 <a
-                  href="https://wa.me/918674823125?text=Hello%21%20I%20need%20a%20shifting%20quote."
+                  href={companyInfo.whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg bg-green-500 px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-green-600"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 sm:px-6 py-3 text-xs sm:text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 font-sans"
                 >
-                  <FaWhatsapp className="text-xl" />
-                  WhatsApp
+                  <FaWhatsapp size={15} />
+                  <span>WhatsApp</span>
                 </a>
               </div>
             </div>
@@ -172,68 +176,89 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* =========================================================================
+          SECTION 2: FACTS & IMPACT (MODERNIZED DARK RIBBON)
+          ========================================================================= */}
       <FactsSection />
 
-      <section ref={zonesRef} className="bg-slate-50 py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
+      {/* =========================================================================
+          SECTION 3: STEP-BY-STEP PROCESS
+          ========================================================================= */}
+      <Process />
+
+      {/* =========================================================================
+          SECTION 4: SERVICE COVERAGE & NATIONAL ROUTES
+          ========================================================================= */}
+      <section ref={zonesRef} className="section-spacing bg-slate-50/70 border-b border-slate-100">
+        <div className="site-container">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+            {/* Left Box: India-Wide Network */}
             <div
-              className={`rounded-3xl bg-slate-900 p-6 text-white shadow-2xl shadow-slate-900/15 transition-all duration-1000 ease-out ${zonesInView ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
-                }`}
+              className={`lg:col-span-7 rounded-3xl bg-brand-primary p-6 sm:p-8 text-white shadow-xl border border-blue-400/20 transition-all duration-700 ${
+                zonesInView ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
+              }`}
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-300">Trusted Relocation Services Across India</p>
-              <h2 className="mt-3 text-3xl font-black leading-tight md:text-4xl">
-                Reliable Relocation Services Across India
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold font-heading leading-tight mb-2">
+                Reliable Relocation Routes Across India
               </h2>
-              <p className="mt-4 max-w-xl text-slate-300">
-                We handle local and intercity moves nationwide with safe packing, smooth transportation, and on-time delivery support.
+              <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-6">
+                From local shifting within Ranchi to scheduled intercity runs across all major state capitals, our dedicated container vehicles guarantee on-time transit.
               </p>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {zones.map((city, idx) => (
+              {/* City Grid Pills */}
+              <div className="grid gap-2 sm:grid-cols-3">
+                {zones.map((city) => (
                   <div
                     key={city}
-                    className={`flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm transition-all duration-1000 ease-out ${zonesInView ? "translate-x-0 opacity-100" : idx % 2 === 0 ? "-translate-x-8 opacity-0" : "translate-x-8 opacity-0"
-                      }`}
-                    style={{ transitionDelay: `${180 + idx * 70}ms` }}
+                    className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-sans text-slate-200 backdrop-blur-xs hover:border-white/20 hover:bg-white/10 transition-all"
                   >
-                    <span className="grid h-8 w-8 place-items-center rounded-full bg-orange-500 text-sm font-bold text-white">
-                      <MapPin size={14} />
+                    <span className="w-5 h-5 rounded-full bg-white/10 text-brand flex items-center justify-center shrink-0">
+                      <MapPin size={11} />
                     </span>
-                    <span className="font-medium text-white">{city}</span>
+                    <span className="font-medium truncate">{city}</span>
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Right Box: Coverage Snapshot */}
             <div
-              className={`rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-1000 ease-out ${zonesInView ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-                }`}
+              className={`lg:col-span-5 rounded-3xl border border-slate-200/90 bg-white p-6 shadow-xs transition-all duration-700 ${
+                zonesInView ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
+              }`}
             >
-              <h3 className="text-2xl font-bold text-slate-950">Service coverage snapshot</h3>
-              <p className="mt-3 leading-7 text-slate-600">
-                Serving customers across India, we provide hassle-free local and intercity relocation services with professional handling and timely delivery.
+              <h3 className="text-lg sm:text-xl font-bold font-heading text-slate-950 mb-2">
+                Service Coverage Snapshot
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-5">
+                Full-service relocation infrastructure backed by physical survey teams, heavy packaging supplies, and dedicated customer coordinators.
               </p>
 
-              <div className="mt-6 grid gap-4">
-                <div className="rounded-2xl bg-orange-50 p-5 transition-transform duration-500 hover:-translate-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-700">Local moves</p>
-                  <p className="mt-2 text-slate-700">
-                    Ranchi city, Ratu Road, Lalpur, Doranda, Harmu, Booty More, Kanke, and surrounding areas.
+              <div className="space-y-3.5">
+                <div className="rounded-2xl bg-brand-light border border-brand-light p-4 transition-transform hover:-translate-y-0.5">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-brand font-heading">
+                    Local Shifting in Ranchi
+                  </p>
+                  <p className="mt-1 text-xs text-slate-700 font-sans leading-relaxed">
+                    Ratu Road, Harmu, Lalpur, Doranda, Morabadi, Bariatu, Booty More, Kanke, Dhurwa, and all Ranchi localities.
                   </p>
                 </div>
-                <div className="rounded-2xl bg-slate-50 p-5 transition-transform duration-500 hover:-translate-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-700">
-                    Pan India Routes
+
+                <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 transition-transform hover:-translate-y-0.5">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-700 font-heading">
+                    Intercity & Interstate Express
                   </p>
-                  <p className="mt-2 text-slate-700">
-                    Delhi, Mumbai, Kolkata, Bangalore, Hyderabad, Chennai, Pune, Patna, Bhubaneswar, Ahmedabad, and other major cities across India.
+                  <p className="mt-1 text-xs text-slate-700 font-sans leading-relaxed">
+                    Daily scheduled container routes to Patna, Kolkata, Delhi NCR, Bangalore, Pune, Mumbai, Hyderabad, and 50+ tier 1/2 hubs.
                   </p>
                 </div>
-                <div className="rounded-2xl bg-slate-900 p-5 text-white transition-transform duration-500 hover:-translate-y-1">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-orange-300">Support promise</p>
-                  <p className="mt-2 text-slate-200">
-                    Packing guidance, route coordination, loading support, and delivery follow-up with a customer-first approach.
+
+                <div className="rounded-2xl bg-brand-primary text-white p-4 border border-blue-400/20 transition-transform hover:-translate-y-0.5">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-blue-300 font-heading">
+                    Our Quality Promise
+                  </p>
+                  <p className="mt-1 text-xs text-blue-100 font-sans leading-relaxed">
+                    Zero hidden charges, comprehensive written estimates, verified crew, and 24x7 phone/WhatsApp move updates.
                   </p>
                 </div>
               </div>
@@ -242,12 +267,23 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* =========================================================================
+          SECTION 5: WHY CHOOSE US
+          ========================================================================= */}
+      <WhyChooseUs />
+
+      {/* =========================================================================
+          SECTION 6: OPERATIONAL CITIES
+          ========================================================================= */}
       <OperationalCities
-        title="Operational Cities"
-        subtitle="Browse the key city-wise service pages we support across India."
+        title="Operational Cities &"
+        subtitle="Browse the key city-wise service branches and district hubs we support across India."
         cities={operationalCities}
       />
 
+      {/* =========================================================================
+          SECTION 5: FINAL CALL TO ACTION
+          ========================================================================= */}
       <CallToAction />
     </main>
   );

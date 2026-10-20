@@ -20,36 +20,36 @@ const assetsUrl = (path: string, fallback?: string) => {
 export const siteAssets = {
   branding: {
     /** Main website logo used in the navbar brand and footer brand areas. */
-    main: assetsUrl("/assets/logo/logo.png", "/media/logo.png"),
+    main: "/assets/logo/logo.png",
   },
 
   pages: {
     home: {
       /** Homepage hero section slide image used in the main hero carousel. */
-      heroSlideOne: "/media/hero-1.svg",
+      heroSlideOne: "/assets/about/about1.jpg",
 
       /** Homepage hero section video used in the main hero carousel for motion and depth. */
       heroVideo: "https://www.pexels.com/download/video/4277372/",
 
       /** Homepage hero section slide image used in the main hero carousel. */
-      heroSlideTwo: "/media/hero-2.svg",
+      heroSlideTwo: "/assets/about/about2.jpg",
 
       /** Homepage hero badge area used to reinforce the brand message. */
-      heroBadgeImage: "/media/hero-1.svg",
+      heroBadgeImage: "/assets/about/about1.jpg",
     },
 
     about: {
       /** About page hero banner image used behind the page title area. */
-      heroBanner: "https://www.adarshindiapackers.com/wp-content/uploads/2026/03/young-happy-delivery-man-with-cardboard-boxes-looking-at-camera-.jpg",
+      heroBanner: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
 
       /** About page collage image shown in the left content grid beside company highlights. */
-      collageOne: "/media/hero-1.svg",
+      collageOne: "/assets/about/about1.jpg",
 
       /** About page collage image shown in the middle content grid beside company overview copy. */
-      collageTwo: "/media/hero-2.svg",
+      collageTwo: "/assets/about/about2.jpg",
 
       /** About page collage image shown in the lower content block beside the company overview text. */
-      collageThree: "/media/about-3.svg",
+      collageThree: "/assets/about/about3.jpg",
     },
 
     contact: {
@@ -106,10 +106,10 @@ export const siteAssets = {
        
 
       /** Home page hero carousel video slide used between static slides for motion. */
-      video: assetsUrl("/assets/home-slider/vid1.mp4"),
-      slideOne: assetsUrl("/assets/home-slider/image3.png"),
+      video: assetsUrl("/assets/home-slider/vid1.mp4", "https://www.pexels.com/download/video/4277372/"),
+      slideOne: assetsUrl("/assets/home-slider/image3.png", "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=1920&q=80"),
       /** Home page hero carousel second slide image showing a branded moving service visual. */
-      slideTwo: assetsUrl("/assets/home-slider/image2.png"),
+      slideTwo: assetsUrl("/assets/home-slider/image2.png", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80"),
     },
 
     whyChooseUs: {
@@ -157,7 +157,7 @@ export const siteAssets = {
   services: {
     household: {
       /** Household shifting page hero banner used on the service detail page and service card overlay. */
-      heroBanner: assetsUrl("/assets/services/household/service-house-bg.avif"),
+      heroBanner: assetsUrl("/assets/services/household/service-house-bg.avif", "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"),
 
       /** Household service FAQ carousel image showing a residential relocation scene. */
       faqSlideOne: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
@@ -171,7 +171,7 @@ export const siteAssets = {
 
     office: {
       /** Office relocation page hero banner used on the service detail page and service card overlay. */
-      heroBanner: assetsUrl("/assets/services/office/office-banner.avif"),
+      heroBanner: assetsUrl("/assets/services/office/office-banner.avif", "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"),
 
       /** Office relocation FAQ carousel image showing corporate movement support. */
       faqSlideOne: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80",
@@ -242,13 +242,13 @@ export const siteAssets = {
 
   common: {
     /** About page collage image used in the company intro section. */
-    aboutCollageOne: assetsUrl("/assets/about/about1.jpg"),
+    aboutCollageOne: assetsUrl("/assets/about/about1.jpg", "/assets/about/about1.jpg"),
 
     /** About page collage image used in the company intro section. */
-    aboutCollageTwo: assetsUrl("/assets/about/about3.jpg"),
+    aboutCollageTwo: assetsUrl("/assets/about/about2.jpg", "/assets/about/about2.jpg"),
 
     /** About page collage image used in the company intro section. */
-    aboutCollageThree: assetsUrl("/assets/about/about2.jpg"),
+    aboutCollageThree: assetsUrl("/assets/about/about3.jpg", "/assets/about/about3.jpg"),
 
     /** Shared service preview image used in hero overlays and fallback sections. */
     movingTeamOne: "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?auto=format&fit=crop&w=1200&q=80",
@@ -295,19 +295,19 @@ export const siteAssets = {
 
   external: {
     /** Alternate older Supabase-style alias kept for legacy code paths that still read the logo as a string. */
-    logo: assetsUrl("/assets/logo/logo.png", "/media/logo.png"),
+    logo: "/assets/logo/logo.png",
 
     /** Legacy flat alias for the household service banner used by older imports. */
-    servicehousebanner: assetsUrl("/assets/services/household/service-house-bg.avif"),
+    servicehousebanner: assetsUrl("/assets/services/household/service-house-bg.avif", "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"),
 
     /** Legacy flat alias for the office service banner used by older imports. */
-    officebanner: assetsUrl("/assets/services/office/office-banner.avif"),
+    officebanner: assetsUrl("/assets/services/office/office-banner.avif", "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"),
 
     /** Legacy flat alias for the about page hero banner used by older imports. */
-    aboutBanner: "https://www.adarshindiapackers.com/wp-content/uploads/2026/03/young-happy-delivery-man-with-cardboard-boxes-looking-at-camera-.jpg",
+    aboutBanner: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
 
     /** Legacy flat alias for the services/packing asset used by older imports and future reuse. */
-    packingService: assetsUrl("/assets/services/packing.jpg"),
+    packingService: assetsUrl("/assets/services/packing.jpg", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80"),
 
     /** Legacy fallback hero image used in some older district and marketing sections. */
     jharkhandHero: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=1600&q=80",
@@ -323,17 +323,17 @@ export const siteAssets = {
   },
 
   /** Flat alias preserved so existing imports like `siteAssets.logo` keep working. */
-  logo: assetsUrl("/assets/logo/logo.png", "/media/logo.png"),
+  logo: "/assets/logo/logo.png",
 
   /** Flat alias preserved for older components that still read the household banner directly. */
-  servicehousebanner: assetsUrl("/assets/services/household/service-house-bg.avif"),
+  servicehousebanner: assetsUrl("/assets/services/household/service-house-bg.avif", "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80"),
 
   /** Flat alias preserved for older components that still read the office banner directly. */
-  officebanner: assetsUrl("/assets/services/office/office-banner.avif"),
+  officebanner: assetsUrl("/assets/services/office/office-banner.avif", "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"),
 
   /** Flat alias preserved for older pages that still reference the about hero banner directly. */
-  aboutBanner: "https://www.adarshindiapackers.com/wp-content/uploads/2026/03/young-happy-delivery-man-with-cardboard-boxes-looking-at-camera-.jpg",
+  aboutBanner: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
 
   /** Flat alias preserved for older imports that still reference the packing service image directly. */
-  packingService: assetsUrl("/assets/services/packing.jpg"),
+  packingService: assetsUrl("/assets/services/packing.jpg", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80"),
 } as const;

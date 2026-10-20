@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { useInView } from "./useInView";
-import { siteAssets } from "@/lib/site-assets";
+import { useState } from "react";
+import { ChevronDown, PhoneCall, MessageCircle } from "lucide-react";
+import SectionHeader from "./ui/SectionHeader";
+import { companyInfo } from "@/lib/company-info";
 
 type FAQItem = {
   question: string;
@@ -19,132 +19,133 @@ type FAQSectionProps = {
 
 const defaultFaqs: FAQItem[] = [
   {
-    question: "How early should I book Sony Packers and Movers?",
+    question: "How many days in advance should I book my move?",
     answer:
-      "For best slot availability, book at least 3-5 days in advance. For urgent moves, contact us directly and we will try to arrange same-day support.",
+      "For local shifting within Ranchi, 1 to 2 days prior notice is usually enough. For moving to other cities like Patna, Kolkata, Delhi, or Bangalore, we recommend booking 3 to 5 days ahead so we can reserve a dedicated container truck for your date. For urgent moves, call us directly at +91 9835983331.",
   },
   {
-    question: "Do you provide packing materials and labor?",
+    question: "Do you provide packing materials and labour?",
     answer:
-      "Yes. We provide complete packing materials like bubble wrap, boxes, stretch film, and trained staff for packing, loading, transport, and unloading.",
+      "Yes, we bring all packing supplies — bubble wrap, corrugated sheets, foam rolls, heavy cartons, and tape. Our own trained staff takes care of dismantling double beds, packing, loading, transport, unloading, and reassembly.",
   },
   {
-    question: "Can I track my goods during transit?",
+    question: "Will there be any extra or hidden charges on moving day?",
     answer:
-      "Yes, our team shares live movement updates, and for intercity moves we provide status tracking through our support team till delivery.",
+      "No. We provide a clear written estimate before the move starts. The quote includes packing material, labour, truck freight, and unloading. You will not face unexpected extra demands on delivery day.",
   },
   {
-    question: "Do you offer insurance for damage protection?",
+    question: "How do you protect fragile items like LED TV, fridge, and glassware?",
     answer:
-      "Yes, transit insurance options are available. Our team will explain coverage details clearly before final booking.",
+      "Fragile items get multi-layer protection: first a soft foam wrap, followed by thick bubble wrap, corner guards, and sturdy cartons marked 'FRAGILE' so our crew handles them with extra care.",
   },
-];
-
-const defaultImages = [
-  siteAssets.sections.faq.faqSlideOne,
-  siteAssets.sections.faq.faqSlideTwo,
-  siteAssets.sections.faq.faqSlideThree,
+  {
+    question: "Can I transport my bike or car along with household goods?",
+    answer:
+      "Yes. Two-wheelers and cars are inspected, mirrors and headlamps wrapped with protective foam, and securely fastened inside closed container carriers to prevent scratches or transit damage.",
+  },
+  {
+    question: "Is transit insurance available for long-distance shifting?",
+    answer:
+      "Yes. For intercity moves across India, we arrange full transit insurance for household goods and vehicles for complete peace of mind.",
+  },
 ];
 
 export default function FAQSection({
-  title = "Frequently Asked Questions",
-  subtitle = "Everything customers commonly ask before booking a move.",
+  title = "Frequently Asked",
+  subtitle = "Simple answers to common questions about shifting costs, packing materials, vehicle transport, and schedules.",
   faqs = defaultFaqs,
-  images = defaultImages,
 }: FAQSectionProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [activeSlide, setActiveSlide] = useState(0);
-  const { ref, isInView } = useInView<HTMLDivElement>();
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % images.length);
-    }, 3500);
-    return () => clearInterval(id);
-  }, [images.length]);
+  const toggle = (idx: number) => {
+    setActiveIndex((prev) => (prev === idx ? null : idx));
+  };
 
   return (
-    <section ref={ref} className="bg-slate-50 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center">
-          <h2
-            className={`text-4xl font-bold text-slate-900 transition-all duration-1000 ease-out md:text-5xl ${
-              isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-10 opacity-0 blur-[2px]"
-            }`}
-          >
-            {title}
-          </h2>
-          <p
-            className={`mx-auto mt-3 max-w-2xl text-slate-600 transition-all duration-1000 ease-out ${
-              isInView ? "translate-y-0 opacity-100 blur-0" : "translate-y-10 opacity-0 blur-[2px]"
-            }`}
-            style={{ transitionDelay: "220ms" }}
-          >
-            {subtitle}
-          </p>
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:items-start">
-          <div
-            className={`relative h-[330px] overflow-hidden rounded-2xl bg-slate-900 shadow-xl transition-all duration-1000 ease-out sm:h-[420px] ${
-              isInView ? "translate-x-0 scale-100 opacity-100 blur-0" : "-translate-x-8 scale-[0.98] opacity-0 blur-[2px]"
-            }`}
-          >
-            {images.map((image, idx) => (
-              <img
-                key={`${image}-${idx}`}
-                src={image}
-                alt={`FAQ slide ${idx + 1}`}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-                  idx === activeSlide ? "opacity-100" : "opacity-0"
-                }`}
+    <section className="section-spacing bg-white border-b border-slate-100">
+      <div className="site-container">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Heading + Direct Contact Card */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <SectionHeader
+                align="left"
+                title={title}
+                highlight="Questions"
+                description={subtitle}
+                className="mb-6 max-w-xl"
               />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/20 to-transparent" />
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-              {images.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`h-2.5 rounded-full transition-all ${idx === activeSlide ? "w-7 bg-orange-500" : "w-2.5 bg-white/75"}`}
-                />
-              ))}
+
+              {/* Direct Help & Support Card */}
+              <div className="rounded-2xl bg-brand-primary text-white p-6 border border-blue-400/20 shadow-lg mt-6">
+                <h4 className="text-base font-bold text-white font-heading mb-1">
+                  Have a specific question about your move?
+                </h4>
+                <p className="text-xs sm:text-sm text-blue-100 font-sans leading-relaxed mb-5">
+                  Our Ranchi office is open 24x7 to provide free consultation, custom route estimates, and packing advice.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <a
+                    href={companyInfo.telLink}
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-white hover:bg-slate-100 text-slate-950 py-2.5 px-4 text-xs font-semibold transition-colors font-sans shadow-xs"
+                  >
+                    <PhoneCall size={13} className="text-brand" />
+                    <span>Call {companyInfo.formattedPhone}</span>
+                  </a>
+                  <a
+                    href={companyInfo.whatsappLink("Hello! I have a question regarding relocation.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 px-4 text-xs font-semibold transition-colors font-sans shadow-xs"
+                  >
+                    <MessageCircle size={14} />
+                    <span>WhatsApp 24x7</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-3">
+          {/* Right Column: FAQ Accordion */}
+          <div className="lg:col-span-7 space-y-2.5">
             {faqs.map((item, idx) => {
               const isOpen = activeIndex === idx;
               return (
-                <article
-                  key={item.question}
-                  className={`overflow-hidden rounded-xl border transition-all duration-1000 ease-out ${
-                    isOpen ? "border-orange-200 bg-white shadow-md" : "border-slate-200 bg-white"
-                  } ${isInView ? "translate-x-0 opacity-100 blur-0" : `${idx % 2 === 0 ? "-translate-x-6" : "translate-x-6"} opacity-0 blur-[2px]`}`}
-                  style={{ transitionDelay: `${260 + idx * 150}ms` }}
+                <div
+                  key={idx}
+                  className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    isOpen
+                      ? "border-brand/40 bg-white shadow-xs ring-1 ring-brand/10"
+                      : "border-slate-200/90 bg-white hover:border-slate-300"
+                  }`}
                 >
                   <button
-                    onClick={() => setActiveIndex(idx)}
-                    className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left sm:px-5"
+                    type="button"
+                    onClick={() => toggle(idx)}
+                    className="flex w-full items-center justify-between gap-4 p-4 sm:p-5 text-left cursor-pointer"
                     aria-expanded={isOpen}
                   >
-                    <span className="font-semibold text-slate-900">{item.question}</span>
-                    <ChevronDown
-                      size={18}
-                      className={`flex-shrink-0 text-slate-500 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 text-orange-600" : ""
+                    <span className="font-bold text-slate-900 text-sm sm:text-base font-heading leading-tight">
+                      {item.question}
+                    </span>
+                    <div
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                        isOpen ? "bg-brand text-white rotate-180" : "bg-slate-100 text-slate-500"
                       }`}
-                    />
-                  </button>
-                  <div
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isOpen ? "grid-rows-[1fr] border-t border-slate-100" : "grid-rows-[0fr]"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="px-4 py-4 text-sm leading-7 text-slate-600 sm:px-5">{item.answer}</p>
+                    >
+                      <ChevronDown size={14} />
                     </div>
-                  </div>
-                </article>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-slate-100 mt-1">
+                      <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed pt-3">
+                        {item.answer}
+                      </p>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
