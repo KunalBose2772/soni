@@ -75,6 +75,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/assets/logo/favicon.png", type: "image/png" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/assets/logo/favicon.png",
+    apple: "/assets/logo/favicon.png",
+  },
   other: {
     "geo.region": "IN-JH",
     "geo.placename": "Ranchi",
@@ -155,6 +163,9 @@ export default function RootLayout({
       className={`${sora.variable} ${montserrat.variable} h-full antialiased`}
     >
       <head>
+        <link rel="icon" href="/assets/logo/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/assets/logo/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/assets/logo/favicon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
